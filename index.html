@@ -1031,6 +1031,8 @@
       border: none;
       cursor: pointer;
       padding: 0.5rem;
+      z-index: 1001;
+      position: relative;
     }
     .mobile-toggle span {
       display: block;
@@ -1039,6 +1041,50 @@
       background: var(--white);
       margin: 5px 0;
       transition: all 0.3s;
+    }
+    .mobile-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+    .mobile-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.98);
+      z-index: 1000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .mobile-menu.active {
+      display: flex;
+    }
+    .mobile-menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover {
+      color: var(--text-muted);
+    }
+    .mobile-menu .mobile-cta {
+      margin-top: 1rem;
+      padding: 0.875rem 2rem;
+      background: var(--white);
+      color: var(--black);
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1rem;
     }
 
     /* ── Responsive ── */
@@ -1081,6 +1127,16 @@
       <span></span><span></span><span></span>
     </button>
   </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#portfolio">Work</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+    <a href="https://cal.com/benjamin-loh/discovery-call" class="mobile-cta" target="_blank">Work with us</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
@@ -1523,6 +1579,23 @@
       });
     }, { threshold: 0.1 });
     revealEls.forEach(el => observer.observe(el));
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
 
     // Smooth scroll for nav links
     document.querySelectorAll('a[href^="#"]').forEach(a => {
