@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kira Sato — Art Director & Brand Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* === RESET & BASE === */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #111111;
+  --bg-light: #f5f2ee;
+  --white: #ffffff;
+  --gray-100: #e0e0e0;
+  --gray-300: #999999;
+  --gray-500: #666666;
+  --gray-700: #333333;
+  --gray-900: #1a1a1a;
+  --coral: #e8634a;
+  --coral-dark: #c9503a;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-700) var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--coral);
+  color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img { display: block; max-width: 100%; }
+
+/* === CUSTOM CURSOR === */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--coral);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(232, 99, 74, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+.cursor-dot.hovering {
+  width: 60px; height: 60px;
+  background: rgba(232, 99, 74, 0.15);
+  mix-blend-mode: normal;
+}
+
+.cursor-ring.hovering {
+  width: 80px; height: 80px;
+  border-color: var(--coral);
+}
+
+/* === REVEAL ANIMATIONS === */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.35s; }
+.reveal-delay-4 { transition-delay: 0.5s; }
+.reveal-delay-5 { transition-delay: 0.65s; }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.visible, .reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.char-reveal span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.char-reveal.visible span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === NAV === */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--coral);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+  position: relative;
+}
+
+.hero-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-300);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.hero-name {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 9vw, 180px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.hero-name .line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-name .line:nth-child(2) {
+  padding-left: 12vw;
+  color: var(--gray-300);
+  font-weight: 300;
+}
+
+.hero-role {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 300;
+  margin-left: 4px;
+}
+
+.hero-role .coral { color: var(--coral); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-scroll-line {
+  width: 48px;
+  height: 1px;
+  background: var(--gray-700);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--coral);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+.hero-year {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  color: var(--gray-500);
+  letter-spacing: 2px;
+}
+
+/* === SECTION COMMON === */
+.section-pad {
+  padding: 160px 48px;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 80px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--gray-700);
+}
+
+.section-number {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  color: var(--gray-700);
+  margin-right: 12px;
+}
+
+/* === SELECTED WORK === */
+.work { padding-top: 80px; }
+
+.project {
+  margin-bottom: 180px;
+  position: relative;
+}
+
+.project:last-child { margin-bottom: 0; }
+
+.project-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.project:nth-child(even) .project-inner {
+  direction: rtl;
+}
+
+.project:nth-child(even) .project-inner > * {
+  direction: ltr;
+}
+
+.project-image-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 4/5;
+}
+
+.project:nth-child(odd) .project-image-wrap {
+  aspect-ratio: 3/4;
+}
+
+.project:nth-child(even) .project-image-wrap {
+  aspect-ratio: 16/10;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project:hover .project-image {
+  transform: scale(1.05);
+}
+
+/* Project images */
+
+.project-info {
+  padding: 24px 0;
+}
+
+.project-category {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.project-name {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.project-client {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 400;
+}
+
+.project-year {
+  font-family: var(--font-heading);
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--gray-900);
+  position: absolute;
+  bottom: -30px;
+  right: 48px;
+  letter-spacing: -0.03em;
+  user-select: none;
+}
+
+.project:nth-child(even) .project-year {
+  right: auto;
+  left: 48px;
+}
+
+/* === ABOUT (WHITE SECTION) === */
+.about {
+  background: var(--bg-light);
+  color: var(--bg);
+  position: relative;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.about-text {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 2.8vw, 44px);
+  font-weight: 300;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+}
+
+.about-text .first-line {
+  color: var(--bg);
+  font-weight: 500;
+}
+
+.about-text .rest {
+  color: var(--gray-500);
+}
+
+.about-aside {
+  padding-top: 16px;
+}
+
+.about-detail {
+  margin-bottom: 48px;
+}
+
+.about-detail-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+
+.about-detail-value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--bg);
+}
+
+.about-notice {
+  display: inline-block;
+  padding: 16px 28px;
+  border: 1px solid var(--bg);
+  border-radius: 100px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--bg);
+  margin-top: 24px;
+}
+
+.about-notice .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: #2ecc71;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.about .section-label { color: var(--gray-500); }
+.about .section-label::before { background: var(--gray-300); }
+
+/* === CAPABILITIES === */
+.capabilities-list {
+  border-top: 1px solid var(--gray-900);
+}
+
+.capability-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--gray-900);
+  cursor: default;
+  transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.capability-item:hover {
+  padding-left: 24px;
+}
+
+.capability-name {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 4vw, 56px);
+  font-weight: 300;
+  color: var(--gray-700);
+  transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.02em;
+}
+
+.capability-item:hover .capability-name {
+  color: var(--white);
+  transform: scale(1.02);
+  transform-origin: left center;
+}
+
+.capability-number {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--gray-700);
+  letter-spacing: 1px;
+  transition: color 0.4s ease;
+}
+
+.capability-item:hover .capability-number {
+  color: var(--coral);
+}
+
+.capability-accent {
+  width: 0;
+  height: 2px;
+  background: var(--coral);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 4px;
+}
+
+.capability-item:hover .capability-accent {
+  width: 60px;
+}
+
+/* === RECOGNITION === */
+.recognition {
+  background: var(--bg);
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.award-item {
+  background: var(--gray-900);
+  padding: 56px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.award-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: var(--coral);
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.award-item:hover::before {
+  transform: translateY(0);
+}
+
+.award-item > * { position: relative; z-index: 1; }
+
+.award-org {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 16px;
+  transition: color 0.4s ease;
+}
+
+.award-item:hover .award-org { color: rgba(255,255,255,0.7); }
+
+.award-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  transition: color 0.4s ease;
+}
+
+.award-year {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-500);
+  transition: color 0.4s ease;
+}
+
+.award-item:hover .award-year { color: rgba(255,255,255,0.8); }
+
+/* === MARQUEE === */
+.marquee-section {
+  padding: 80px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--gray-900);
+  border-bottom: 1px solid var(--gray-900);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 80px;
+  animation: marquee 20s linear infinite;
+  width: max-content;
+}
+
+.marquee-text {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 6vw, 100px);
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+}
+
+.marquee-text .sep {
+  color: var(--coral);
+  margin: 0 40px;
+  font-weight: 300;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === CONTACT === */
+.contact {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 5.5vw, 96px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 48px;
+  max-width: 900px;
+}
+
+.contact-heading em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gray-300);
+}
+
+.contact-email {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.2vw, 32px);
+  font-weight: 400;
+  color: var(--coral);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 64px;
+}
+
+.contact-email::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 100%; height: 2px;
+  background: var(--coral);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-email:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.contact-social {
+  display: flex;
+  gap: 40px;
+}
+
+.contact-social a {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  transition: color 0.3s ease;
+  font-weight: 400;
+}
+
+.contact-social a:hover { color: var(--white); }
+
+/* === FOOTER === */
+.footer {
+  padding: 40px 48px;
+  border-top: 1px solid var(--gray-900);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 11px;
+  color: var(--gray-500);
+  letter-spacing: 1px;
+}
+
+.footer-center {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-700);
+}
+
+.footer-right {
+  font-size: 11px;
+  color: var(--gray-500);
+  letter-spacing: 1px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .project-inner { grid-template-columns: 1fr; gap: 32px; }
+  .project:nth-child(even) .project-inner { direction: ltr; }
+  .project-year { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 64px; }
+  .awards-grid { grid-template-columns: 1fr; }
+  .section-pad { padding: 120px 32px; }
+  .nav { padding: 24px 32px; }
+  .hero { padding: 0 32px; }
+  .footer { padding: 32px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .section-pad { padding: 80px 20px; }
+  .hero { padding: 0 20px; }
+  .project { margin-bottom: 100px; }
+  .capability-item { padding: 28px 0; }
+  .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; }
+  .contact-social { flex-wrap: wrap; gap: 24px; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* === LOADING OVERLAY === */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-text {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  overflow: hidden;
+}
+
+.loader-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--coral);
+  animation: loadBar 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes loadBar {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* === NOISE TEXTURE OVERLAY === */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+</style>
+</head>
+<body>
+
+<!-- Noise overlay -->
+<div class="noise"></div>
+
+<!-- Custom cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- Loading screen -->
+<div class="loader">
+  <span class="loader-text">Kira Sato</span>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">KS</div>
+  <ul class="nav-links">
+    <li><a href="#work" data-hover>Work</a></li>
+    <li><a href="#about" data-hover>About</a></li>
+    <li><a href="#contact" data-hover>Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label reveal reveal-delay-2">Portfolio &mdash; 2026</div>
+  <h1 class="hero-name char-reveal">
+    <span class="line"><span>Kira</span></span>
+    <span class="line"><span>Sato</span></span>
+  </h1>
+  <p class="hero-role reveal reveal-delay-3">Art Director <span class="coral">&</span> Brand Designer</p>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll to explore
+  </div>
+  <div class="hero-year">&#169; 2026</div>
+</section>
+
+<!-- SELECTED WORK -->
+<section id="work" class="section-pad work">
+  <div class="section-label reveal">
+    <span class="section-number">01</span> Selected Work
+  </div>
+
+  <!-- Project 1 -->
+  <div class="project">
+    <div class="project-inner">
+      <div class="project-image-wrap reveal-left" data-hover data-parallax>
+        <img src="../images/Portfolio/portfolio 1.JPG" alt="Graphic design exhibition with Givenchy branding and typography" class="project-image" loading="lazy">
+      </div>
+      <div class="project-info reveal-right">
+        <div class="project-category">Brand Identity</div>
+        <h2 class="project-name">Nocturne<br>Studios</h2>
+        <div class="project-client">Nocturne Entertainment</div>
+      </div>
+    </div>
+    <div class="project-year reveal">2025</div>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project">
+    <div class="project-inner">
+      <div class="project-image-wrap reveal-right" data-hover data-parallax>
+        <img src="../images/Portfolio/portfolio 2.JPG" alt="Beauty and skincare product display in dark gallery setting" class="project-image" loading="lazy">
+      </div>
+      <div class="project-info reveal-left">
+        <div class="project-category">Art Direction</div>
+        <h2 class="project-name">Meridian</h2>
+        <div class="project-client">Meridian Collective</div>
+      </div>
+    </div>
+    <div class="project-year reveal">2025</div>
+  </div>
+
+  <!-- Project 3 -->
+  <div class="project">
+    <div class="project-inner">
+      <div class="project-image-wrap reveal-left" data-hover data-parallax>
+        <img src="../images/Portfolio/portfolio 3.JPG" alt="Immersive LED display with electric scooters in vibrant colors" class="project-image" loading="lazy">
+      </div>
+      <div class="project-info reveal-right">
+        <div class="project-category">UI/UX Design</div>
+        <h2 class="project-name">Aether<br>Protocol</h2>
+        <div class="project-client">Aether Labs</div>
+      </div>
+    </div>
+    <div class="project-year reveal">2024</div>
+  </div>
+
+  <!-- Project 4 -->
+  <div class="project">
+    <div class="project-inner">
+      <div class="project-image-wrap reveal-right" data-hover data-parallax>
+        <img src="../images/Portfolio/portfolio 4.JPG" alt="Open design book with black and white photography layouts" class="project-image" loading="lazy">
+      </div>
+      <div class="project-info reveal-left">
+        <div class="project-category">Creative Strategy</div>
+        <h2 class="project-name">Velvet<br>Archive</h2>
+        <div class="project-client">The Velvet Group</div>
+      </div>
+    </div>
+    <div class="project-year reveal">2024</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-text">Design <span class="sep">/</span> Direction <span class="sep">/</span> Strategy <span class="sep">/</span> Craft <span class="sep">/</span> Vision <span class="sep">/</span></span>
+    <span class="marquee-text">Design <span class="sep">/</span> Direction <span class="sep">/</span> Strategy <span class="sep">/</span> Craft <span class="sep">/</span> Vision <span class="sep">/</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section-pad about">
+  <div class="section-label reveal">
+    <span class="section-number">02</span> About
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <span class="first-line">I craft visual identities that refuse to whisper.</span>
+      <span class="rest"> With over a decade shaping brands across Tokyo, New York, and London, I bring a relentless obsession with detail, a deep respect for whitespace, and an unapologetic belief that design should provoke, not just perform.</span>
+    </div>
+    <div class="about-aside">
+      <div class="about-detail reveal reveal-delay-1">
+        <div class="about-detail-label">Based in</div>
+        <div class="about-detail-value">Tokyo, Japan</div>
+      </div>
+      <div class="about-detail reveal reveal-delay-2">
+        <div class="about-detail-label">Experience</div>
+        <div class="about-detail-value">12+ Years</div>
+      </div>
+      <div class="about-detail reveal reveal-delay-3">
+        <div class="about-detail-label">Clients Include</div>
+        <div class="about-detail-value">Nike, Muji, Aesop, Sony</div>
+      </div>
+      <div class="reveal reveal-delay-4">
+        <div class="about-notice">
+          <span class="dot"></span>
+          Currently accepting projects for Q3 2026
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="section-pad capabilities">
+  <div class="section-label reveal">
+    <span class="section-number">03</span> Capabilities
+  </div>
+  <div class="capabilities-list">
+    <div class="capability-item reveal reveal-delay-1" data-hover>
+      <div>
+        <div class="capability-name">Brand Identity</div>
+        <div class="capability-accent"></div>
+      </div>
+      <span class="capability-number">01</span>
+    </div>
+    <div class="capability-item reveal reveal-delay-2" data-hover>
+      <div>
+        <div class="capability-name">Art Direction</div>
+        <div class="capability-accent"></div>
+      </div>
+      <span class="capability-number">02</span>
+    </div>
+    <div class="capability-item reveal reveal-delay-3" data-hover>
+      <div>
+        <div class="capability-name">UI/UX Design</div>
+        <div class="capability-accent"></div>
+      </div>
+      <span class="capability-number">03</span>
+    </div>
+    <div class="capability-item reveal reveal-delay-4" data-hover>
+      <div>
+        <div class="capability-name">Motion Design</div>
+        <div class="capability-accent"></div>
+      </div>
+      <span class="capability-number">04</span>
+    </div>
+    <div class="capability-item reveal reveal-delay-5" data-hover>
+      <div>
+        <div class="capability-name">Creative Strategy</div>
+        <div class="capability-accent"></div>
+      </div>
+      <span class="capability-number">05</span>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section class="section-pad recognition">
+  <div class="section-label reveal">
+    <span class="section-number">04</span> Recognition
+  </div>
+  <div class="awards-grid">
+    <div class="award-item reveal reveal-delay-1" data-hover>
+      <div class="award-org">Awwwards</div>
+      <div class="award-title">Site of the Day</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-item reveal reveal-delay-2" data-hover>
+      <div class="award-org">CSS Design Awards</div>
+      <div class="award-title">Best UI Design</div>
+      <div class="award-year">2025</div>
+    </div>
+    <div class="award-item reveal reveal-delay-3" data-hover>
+      <div class="award-org">FWA</div>
+      <div class="award-title">Site of the Day</div>
+      <div class="award-year">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-pad contact">
+  <div class="section-label reveal">
+    <span class="section-number">05</span> Contact
+  </div>
+  <h2 class="contact-heading reveal">
+    Let's create something <em>extraordinary.</em>
+  </h2>
+  <a href="mailto:hello@kirasato.jp" class="contact-email reveal reveal-delay-2" data-hover>hello@kirasato.jp</a>
+  <div class="contact-social reveal reveal-delay-3">
+    <a href="#" data-hover>Instagram</a>
+    <a href="#" data-hover>Dribbble</a>
+    <a href="#" data-hover>Behance</a>
+    <a href="#" data-hover>LinkedIn</a>
+    <a href="#" data-hover>Twitter / X</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">Kira Sato &mdash; &#169; 2026</div>
+  <div class="footer-center">Based in Tokyo</div>
+  <div class="footer-right">All rights reserved</div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // === LOADER ===
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelector('.loader').classList.add('hidden');
+      initRevealAnimations();
+    }, 1600);
+  });
+
+  // === CUSTOM CURSOR ===
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('[data-hover], a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.classList.add('hovering');
+        ring.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.classList.remove('hovering');
+        ring.classList.remove('hovering');
+      });
+    });
+  }
+
+  // === SCROLL REVEAL ===
+  function initRevealAnimations() {
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .char-reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Trigger hero elements immediately
+    document.querySelectorAll('.hero .reveal, .hero .char-reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 1700);
+    });
+  }
+
+  // === PARALLAX ON PROJECT IMAGES ===
+  document.querySelectorAll('[data-parallax]').forEach(wrap => {
+    const img = wrap.querySelector('.project-image');
+
+    wrap.addEventListener('mousemove', e => {
+      const rect = wrap.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      img.style.transform = `scale(1.05) translate(${x * -12}px, ${y * -12}px)`;
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1)';
+    });
+  });
+
+  // === SMOOTH SCROLL FOR NAV LINKS ===
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // === PARALLAX SCROLL EFFECT ON HERO NAME ===
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const heroName = document.querySelector('.hero-name');
+    if (heroName && scrollY < window.innerHeight) {
+      heroName.style.transform = `translateY(${scrollY * 0.15}px)`;
+      heroName.style.opacity = 1 - (scrollY / (window.innerHeight * 0.8));
+    }
+  }, { passive: true });
+
+})();
+</script>
+</body>
+</html>

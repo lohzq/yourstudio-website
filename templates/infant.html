@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little &amp; Co. — Premium Baby Essentials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAF8F6;
+  --bg-alt: #F7F7F7;
+  --text: #2C2C2C;
+  --text-muted: #666666;
+  --accent: #D4596A;
+  --accent-hover: #B84458;
+  --navy: #215387;
+  --card-bg: #FFFFFF;
+  --warm-bg: #F3EDE5;
+  --border: #E8E2DA;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --ease: cubic-bezier(.25, .1, .25, 1);
+  --radius: 12px;
+  --shadow: 0px 15px 15px -10px rgba(0,0,0,0.05);
+  --shadow-hover: 0px 20px 30px -10px rgba(0,0,0,0.1);
+}
+
+html { scroll-behavior: smooth; background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); }
+a { color: inherit; text-decoration: none; }
+button, input { font-family: inherit; font-size: inherit; color: inherit; border: none; outline: none; background: none; }
+::selection { background: var(--accent); color: #fff; }
+
+.container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ====== NAVIGATION ====== */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); transition: background .4s var(--ease), backdrop-filter .4s var(--ease), box-shadow .4s var(--ease); }
+.nav.scrolled { background: rgba(255,255,255,.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 1px 20px rgba(0,0,0,0.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { font-family: var(--font-heading); font-size: 22px; font-weight: 700; letter-spacing: -.3px; }
+.nav-logo span { color: var(--accent); }
+.nav-center { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-center a { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color .3s var(--ease); }
+.nav-center a:hover { color: var(--text); }
+.nav-cta { display: inline-flex; align-items: center; padding: 10px 26px; background: var(--accent); color: #fff; border-radius: 9999px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .3s var(--ease), transform .2s var(--ease); }
+.nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 110; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .35s var(--ease), opacity .25s var(--ease); }
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile { display: none; position: fixed; inset: 0; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 32px; z-index: 105; opacity: 0; transition: opacity .4s var(--ease); }
+.nav-mobile.open { display: flex; opacity: 1; }
+.nav-mobile a { font-family: var(--font-heading); font-size: 28px; font-weight: 600; transition: color .3s var(--ease); }
+.nav-mobile a:hover { color: var(--accent); }
+
+/* ====== HERO ====== */
+.hero { padding: 160px 0 120px; text-align: center; position: relative; }
+.hero-line { position: absolute; top: 130px; left: 50%; transform: translateX(-50%); width: 40px; height: 2px; background: var(--accent); opacity: .5; }
+.hero h1 { font-family: var(--font-heading); font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.15; margin-bottom: 24px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.hero-sub { font-size: clamp(15px, 1.8vw, 17px); color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.8; }
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary { display: inline-flex; align-items: center; padding: 15px 36px; background: var(--accent); color: #fff; border-radius: 9999px; font-weight: 500; font-size: 15px; cursor: pointer; transition: background .3s var(--ease), transform .2s var(--ease), box-shadow .3s var(--ease); }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,89,106,.25); }
+.btn-outline { display: inline-flex; align-items: center; padding: 15px 36px; border: 1.5px solid var(--border); color: var(--text); border-radius: 9999px; font-weight: 500; font-size: 15px; cursor: pointer; transition: border-color .3s var(--ease), color .3s var(--ease); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.hero-dots { display: flex; gap: 6px; justify-content: center; margin-top: 48px; }
+.hero-dots span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: .25; }
+
+/* ====== TRUST STRIP ====== */
+.trust { padding: 36px 0; background: var(--bg-alt); border-top: 2px solid var(--accent); border-top-width: 1px; }
+.trust-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.trust-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(212,89,106,0.1); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--accent); flex-shrink: 0; }
+
+/* ====== FEATURED PRODUCTS ====== */
+.collection { padding: 110px 0; }
+.section-header { text-align: center; margin-bottom: 56px; border-top: 1px solid var(--border); padding-top: 48px; }
+.section-header .overline { font-size: 12px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.section-header h2 { font-family: var(--font-heading); font-size: clamp(28px, 4vw, 42px); font-weight: 600; line-height: 1.2; }
+.collection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 880px; margin: 0 auto; }
+.product-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform .4s var(--ease), box-shadow .4s var(--ease); cursor: pointer; position: relative; }
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.product-img { aspect-ratio: 3/4; position: relative; overflow: hidden; }
+.product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-info { padding: 22px 24px; }
+.product-name { font-family: var(--font-heading); font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.product-meta { display: flex; align-items: center; justify-content: space-between; }
+.product-price { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+.product-link { font-size: 13px; font-weight: 500; color: var(--accent); opacity: 0; transform: translateX(-6px); transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.product-card:hover .product-link { opacity: 1; transform: translateX(0); }
+
+/* ====== STORY ====== */
+.story { padding: 110px 0; }
+.story-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.story-image { aspect-ratio: 4/5; border-radius: var(--radius); overflow: hidden; }
+.story-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.story-content .overline { font-size: 12px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.story-content h2 { font-family: var(--font-heading); font-size: clamp(28px, 3.5vw, 40px); font-weight: 600; line-height: 1.2; margin-bottom: 24px; }
+.story-content p { font-size: 15px; color: var(--text-muted); line-height: 1.85; margin-bottom: 16px; }
+.story-stats { display: flex; gap: 32px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.story-stat { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text); }
+.story-stat::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+/* ====== SERVICES ====== */
+.services { padding: 110px 0; background: var(--bg-alt); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.service-card { background: var(--card-bg); border-radius: var(--radius); padding: 40px 32px; box-shadow: var(--shadow); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.service-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 18px; font-weight: 500; color: #fff; background: var(--accent); }
+.service-title { font-family: var(--font-heading); font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+/* ====== TESTIMONIAL ====== */
+.testimonial { padding: 110px 0; }
+.testimonial-inner { max-width: 680px; margin: 0 auto; text-align: center; position: relative; }
+.testimonial-mark { font-family: var(--font-heading); font-size: 5rem; color: var(--accent); opacity: .2; line-height: 1; margin-bottom: -20px; user-select: none; }
+.testimonial-quote { font-family: var(--font-heading); font-size: clamp(20px, 3vw, 26px); font-weight: 600; font-style: italic; line-height: 1.6; margin-bottom: 32px; }
+.testimonial-stars { display: flex; gap: 6px; justify-content: center; margin-bottom: 20px; }
+.testimonial-stars span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.testimonial-author { font-size: 15px; font-weight: 500; color: var(--text); }
+
+/* ====== NEWSLETTER ====== */
+.newsletter { padding: 100px 0; background: var(--warm-bg); }
+.newsletter-inner { max-width: 500px; margin: 0 auto; text-align: center; }
+.newsletter-inner h2 { font-family: var(--font-heading); font-size: clamp(28px, 4vw, 38px); font-weight: 600; margin-bottom: 12px; }
+.newsletter-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.75; }
+.newsletter-form { display: flex; gap: 12px; }
+.newsletter-input { flex: 1; padding: 14px 22px; border: 1.5px solid var(--border); border-radius: 9999px; font-size: 14px; background: var(--card-bg); transition: border-color .3s var(--ease); }
+.newsletter-input::placeholder { color: #B0AAA2; }
+.newsletter-input:focus { border-color: var(--accent); }
+.newsletter-btn { padding: 14px 30px; background: var(--accent); color: #fff; border-radius: 9999px; font-weight: 500; font-size: 14px; cursor: pointer; white-space: nowrap; transition: background .3s var(--ease), transform .2s var(--ease); }
+.newsletter-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.newsletter-privacy { font-size: 12px; color: var(--text-muted); margin-top: 16px; opacity: .7; }
+
+/* ====== FOOTER ====== */
+.footer { padding: 72px 0 0; background: var(--text); color: #fff; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 56px; }
+.footer-brand { font-family: var(--font-heading); font-size: 22px; font-weight: 700; margin-bottom: 14px; }
+.footer-brand span { color: var(--accent); }
+.footer-tagline { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.75; max-width: 260px; }
+.footer-col-title { font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; color: rgba(255,255,255,.7); }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 14px; color: rgba(255,255,255,.45); transition: color .3s var(--ease); }
+.footer-links a:hover { color: var(--accent); }
+.footer-bar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-top: 1px solid rgba(255,255,255,.1); font-size: 13px; color: rgba(255,255,255,.35); }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .story-inner { grid-template-columns: 1fr; gap: 48px; }
+  .story-image { max-width: 500px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-center, .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .services-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .hero { padding: 140px 0 90px; }
+  .collection, .story, .services, .testimonial { padding: 80px 0; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-btn { width: 100%; text-align: center; justify-content: center; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bar { flex-direction: column; gap: 12px; text-align: center; }
+  .trust-inner { gap: 24px; }
+}
+@media (max-width: 480px) {
+  .collection-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  .trust-inner { flex-direction: column; gap: 14px; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .story-stats { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======== NAVIGATION ======== -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Little <span>&amp;</span> Co.</a>
+    <ul class="nav-center">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#story">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#journal">Journal</a></li>
+    </ul>
+    <a href="#collection" class="nav-cta">Shop Now</a>
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-mobile" id="navMobile">
+  <a href="#collection" onclick="closeMobile()">Collection</a>
+  <a href="#story" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#journal" onclick="closeMobile()">Journal</a>
+  <a href="#collection" class="btn-primary" onclick="closeMobile()">Shop Now</a>
+</div>
+
+<!-- ======== HERO ======== -->
+<section class="hero">
+  <div class="hero-line"></div>
+  <div class="container">
+    <h1 class="reveal">Tested by parents. Trusted by families.</h1>
+    <p class="hero-sub reveal">Curated baby essentials made from organic, sustainable materials — because your little one deserves the very best.</p>
+    <div class="hero-actions reveal">
+      <a href="#collection" class="btn-primary">Browse Collection</a>
+      <a href="#story" class="btn-outline">Our Story</a>
+    </div>
+    <div class="hero-dots reveal">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TRUST STRIP ======== -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item"><div class="trust-icon">&#10003;</div>100% Organic</div>
+      <div class="trust-item"><div class="trust-icon">&#9672;</div>Sustainably Made</div>
+      <div class="trust-item"><div class="trust-icon">&#9829;</div>2,000+ Happy Parents</div>
+      <div class="trust-item"><div class="trust-icon">&#9733;</div>Safety Certified</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FEATURED PRODUCTS ======== -->
+<section class="collection" id="collection">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="overline">The Collection</div>
+      <h2>Thoughtfully made essentials.</h2>
+    </div>
+    <div class="collection-grid">
+      <div class="product-card reveal">
+        <div class="product-img"><img src="../images/Infant/infant 1.JPG" alt="Organic Swaddle Wrap — white crib with organic swaddle blanket and wooden duck toy"></div>
+        <div class="product-info">
+          <div class="product-name">Organic Swaddle Wrap</div>
+          <div class="product-meta">
+            <div class="product-price">$48</div>
+            <div class="product-link">View Details &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img"><img src="../images/Infant/infant 2.JPG" alt="Bamboo Sleep Sack — sage green sleep sack and blanket on wall hooks"></div>
+        <div class="product-info">
+          <div class="product-name">Bamboo Sleep Sack</div>
+          <div class="product-meta">
+            <div class="product-price">$56</div>
+            <div class="product-link">View Details &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img"><img src="../images/Infant/infant 3.JPG" alt="Wooden Rattle Set — natural wood rattle toys on cutting board"></div>
+        <div class="product-info">
+          <div class="product-name">Wooden Rattle Set</div>
+          <div class="product-meta">
+            <div class="product-price">$32</div>
+            <div class="product-link">View Details &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img"><img src="../images/Infant/infant 4.JPG" alt="First Foods Bowl Kit — sage green bowl, cup, and bib on wooden high chair"></div>
+        <div class="product-info">
+          <div class="product-name">First Foods Bowl Kit</div>
+          <div class="product-meta">
+            <div class="product-price">$44</div>
+            <div class="product-link">View Details &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== STORY ======== -->
+<section class="story" id="story">
+  <div class="container">
+    <div class="story-inner">
+      <div class="story-image reveal"><img src="../images/Infant/infant 5.JPG" alt="Happy family in the park"></div>
+      <div class="story-content">
+        <div class="overline reveal">Our Story</div>
+        <h2 class="reveal">Made with intention.</h2>
+        <p class="reveal">Little &amp; Co. began with two parents who wanted better for their baby. We couldn't find essentials that were truly safe, sustainably sourced, and beautifully designed — so we made our own.</p>
+        <p class="reveal">Every product is crafted from certified organic materials, produced in ethical facilities, and designed to grow alongside your family. We're proudly family-owned and committed to leaving a gentler footprint.</p>
+        <div class="story-stats reveal">
+          <div class="story-stat">100% Organic Cotton</div>
+          <div class="story-stat">Carbon Neutral</div>
+          <div class="story-stat">Family Owned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== SERVICES ======== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="overline">What We Offer</div>
+      <h2>More than just products.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">R</div>
+        <div class="service-title">Registry Concierge</div>
+        <div class="service-desc">We curate the perfect baby registry tailored to your needs, nursery style, and budget. Complimentary for every parent.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">W</div>
+        <div class="service-title">Parent Workshops</div>
+        <div class="service-desc">Monthly sessions on infant care, nutrition, and development led by certified experts and experienced parents.</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">B</div>
+        <div class="service-title">Monthly Box</div>
+        <div class="service-desc">Curated essentials delivered to your door every month. Each item hand-selected by our team for your baby's stage.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TESTIMONIAL ======== -->
+<section class="testimonial">
+  <div class="container">
+    <div class="testimonial-inner reveal">
+      <div class="testimonial-mark">&ldquo;</div>
+      <div class="testimonial-quote">The quality is unmatched. Everything feels considered, from the packaging to the fabric. This is the only brand I trust for my baby.</div>
+      <div class="testimonial-stars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="testimonial-author">&mdash; Sarah M., New Parent</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== NEWSLETTER ======== -->
+<section class="newsletter" id="journal">
+  <div class="container">
+    <div class="newsletter-inner reveal">
+      <h2>Join our community.</h2>
+      <p class="newsletter-sub">Parenting tips, new arrivals, and exclusive offers — delivered to your inbox weekly.</p>
+      <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+        <input type="email" class="newsletter-input" placeholder="Your email address" required>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+      <p class="newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Little <span>&amp;</span> Co.</div>
+        <p class="footer-tagline">Premium baby essentials designed with love, crafted with care, made for modern families.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#story">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#journal">Journal</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Customer Care</div>
+        <ul class="footer-links">
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-links">
+          <li><a href="#">Email</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div>&copy; 2026 Little &amp; Co. All rights reserved.</div>
+      <div>Privacy Policy &middot; Terms of Service</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Scroll Reveal */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* Nav Scroll */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+/* Mobile Nav */
+const navToggle = document.getElementById('navToggle');
+const navMobile = document.getElementById('navMobile');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  navMobile.classList.toggle('open');
+  document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+});
+function closeMobile() {
+  navToggle.classList.remove('active');
+  navMobile.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* Newsletter */
+function handleNewsletter(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.newsletter-btn');
+  btn.textContent = 'Welcome!';
+  btn.style.background = '#215387';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; btn.style.pointerEvents = ''; e.target.reset(); }, 3000);
+}
+
+/* Smooth Anchors */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>

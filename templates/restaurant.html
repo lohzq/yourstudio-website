@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison — Contemporary French Cuisine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:        #0c0c0c;
+  --bg-card:   #141414;
+  --bg-subtle: #1a1a1a;
+  --gold:      #c9a96e;
+  --gold-dim:  #a8894e;
+  --gold-glow: rgba(201, 169, 110, .12);
+  --cream:     #f0e6d3;
+  --text:      #e8e2d8;
+  --text-dim:  #9a9489;
+  --border:    #2a2725;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { background: var(--bg); }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 24px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .9s cubic-bezier(.215,.61,.355,1),
+              transform .9s cubic-bezier(.215,.61,.355,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .12s; }
+.reveal-delay-2 { transition-delay: .24s; }
+.reveal-delay-3 { transition-delay: .36s; }
+.reveal-delay-4 { transition-delay: .48s; }
+.reveal-delay-5 { transition-delay: .60s; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 0;
+  transition: background .5s, padding .5s, backdrop-filter .5s;
+}
+.nav.scrolled {
+  background: rgba(12, 12, 12, .85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--cream);
+  text-transform: uppercase;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color .3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width .3s;
+}
+.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover::after { width: 100%; }
+.nav-reserve {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background .3s, color .3s;
+}
+.nav-reserve:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  width: 24px; height: 1.5px;
+  background: var(--cream);
+  transition: transform .3s, opacity .3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('../images/Restaurant/michelin 3.JPG') center center / cover no-repeat;
+  transform: scale(1);
+  transition: transform .1s linear;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(12,12,12,.55) 0%, rgba(12,12,12,.3) 40%, rgba(12,12,12,.6) 100%);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 12vw, 140px);
+  font-weight: 400;
+  letter-spacing: clamp(8px, 2vw, 24px);
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.hero-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(16px, 2.5vw, 24px);
+  font-weight: 400;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  margin-bottom: 48px;
+}
+.hero-cta {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 18px 48px;
+  cursor: pointer;
+  transition: background .3s, transform .3s, box-shadow .3s;
+}
+.hero-cta:hover {
+  background: #d4b67a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201, 169, 110, .25);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: scrollPulse 2.5s ease-in-out infinite;
+}
+.scroll-indicator .line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: .5; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+}
+
+/* ═══════════════════════════════════════════
+   ABOUT / STORY
+   ═══════════════════════════════════════════ */
+.about {
+  padding: clamp(80px, 12vw, 160px) 0;
+  overflow: hidden;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+}
+.about-image {
+  aspect-ratio: 4/5;
+  position: relative;
+  overflow: hidden;
+}
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(201,169,110,.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(180,140,80,.05) 0%, transparent 40%);
+}
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(201,169,110,.15);
+  pointer-events: none;
+}
+.about-text {
+  padding: clamp(0px, 3vw, 40px) 0;
+}
+.about-text .section-heading em {
+  font-style: italic;
+  color: var(--gold);
+}
+.about-body {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+.about-signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--gold);
+}
+.about-sig-title {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   DIVIDER
+   ═══════════════════════════════════════════ */
+.section-divider {
+  text-align: center;
+  padding: 20px 0;
+}
+.section-divider .ornament {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+.section-divider .ornament::before,
+.section-divider .ornament::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+/* ═══════════════════════════════════════════
+   MENU HIGHLIGHTS
+   ═══════════════════════════════════════════ */
+.menu {
+  padding: clamp(80px, 12vw, 160px) 0;
+}
+.menu-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+.menu-header .section-heading {
+  margin-bottom: 12px;
+}
+.menu-subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-dim);
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+.menu-item {
+  background: var(--bg-card);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: background .4s;
+  border: 1px solid transparent;
+}
+.menu-item-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.menu-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .8s cubic-bezier(.215,.61,.355,1);
+}
+.menu-item:hover .menu-item-image img {
+  transform: scale(1.05);
+}
+.menu-item-body {
+  padding: clamp(24px, 3vw, 40px);
+}
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity .4s;
+}
+.menu-item:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border);
+}
+.menu-item:hover::before {
+  opacity: 1;
+}
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  position: relative;
+}
+.menu-item-name {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 400;
+  color: var(--cream);
+  flex: 1;
+}
+.menu-item-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+  margin: 0 16px;
+  min-width: 40px;
+  position: relative;
+  top: -6px;
+}
+.menu-item-price {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.menu-item-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  position: relative;
+}
+.menu-item-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,169,110,.3);
+  padding: 4px 12px;
+}
+
+/* ═══════════════════════════════════════════
+   GALLERY / AMBIENCE
+   ═══════════════════════════════════════════ */
+.gallery {
+  padding: clamp(80px, 12vw, 160px) 0;
+}
+.gallery-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 4px;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 1;
+}
+.gallery-item:nth-child(1) {
+  grid-column: span 2;
+  aspect-ratio: 2/1;
+}
+.gallery-item .placeholder {
+  width: 100%;
+  height: 100%;
+  transition: transform .8s cubic-bezier(.215,.61,.355,1), filter .6s;
+}
+.gallery-item:hover .placeholder {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+.gallery-item .overlay-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12,12,12,.4);
+  opacity: 0;
+  transition: opacity .4s;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--cream);
+  letter-spacing: 2px;
+}
+.gallery-item:hover .overlay-text {
+  opacity: 1;
+}
+
+/* Gallery image placeholders replaced with actual images */
+.gallery-item .placeholder {
+  background-size: cover;
+  background-position: center;
+}
+.gallery-item .placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIAL STRIP
+   ═══════════════════════════════════════════ */
+.testimonial {
+  padding: clamp(60px, 8vw, 100px) 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+.testimonial-author {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   RESERVATIONS
+   ═══════════════════════════════════════════ */
+.reservations {
+  padding: clamp(80px, 12vw, 160px) 0;
+}
+.reservations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+.reservations-info {
+  padding-top: 20px;
+}
+.reservations-info .section-heading em {
+  font-style: italic;
+  color: var(--gold);
+}
+.res-body {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.9;
+  margin-bottom: 40px;
+}
+.res-detail {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+.res-detail-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.res-detail-icon .dot {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.res-detail-text {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.res-detail-text strong {
+  display: block;
+  font-weight: 500;
+  color: var(--cream);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.reservation-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: clamp(32px, 4vw, 56px);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group.full { grid-column: span 2; }
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  font-size: 14px;
+  transition: border-color .3s, box-shadow .3s;
+}
+.form-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+.form-input::placeholder {
+  color: #555;
+}
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%239a9489'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.form-submit {
+  width: 100%;
+  padding: 18px;
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .3s, transform .2s, box-shadow .3s;
+  margin-top: 8px;
+}
+.form-submit:hover {
+  background: #d4b67a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(201,169,110,.2);
+}
+.form-submit:active {
+  transform: translateY(0);
+}
+.form-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 16px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: clamp(60px, 8vw, 100px) 0 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(32px, 4vw, 60px);
+  margin-bottom: 60px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+.footer-brand-text {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  max-width: 300px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.footer-col ul {
+  list-style: none;
+}
+.footer-col li {
+  margin-bottom: 10px;
+}
+.footer-col a, .footer-col span {
+  font-size: 14px;
+  color: var(--text-dim);
+  transition: color .3s;
+  display: inline-block;
+}
+.footer-col a:hover {
+  color: var(--gold);
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: #555;
+}
+.footer-social {
+  display: flex;
+  gap: 24px;
+}
+.footer-social a {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color .3s;
+}
+.footer-social a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .menu-grid { grid-template-columns: 1fr; }
+  .reservations-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-reserve { display: none; }
+  .nav-toggle { display: flex; }
+
+  /* Mobile menu */
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(12,12,12,.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--cream);
+    letter-spacing: 3px;
+    transition: color .3s;
+  }
+  .nav-mobile a:hover { color: var(--gold); }
+
+  .about-grid { grid-template-columns: 1fr; }
+  .about-image { aspect-ratio: 16/10; }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+  .form-row { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: span 1; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item:nth-child(1) { grid-column: span 1; aspect-ratio: 4/3; }
+  .gallery-item { aspect-ratio: 4/3; }
+}
+
+/* ═══════════════════════════════════════════
+   SMOOTH CURSOR TRAIL (subtle glow)
+   ═══════════════════════════════════════════ */
+.cursor-glow {
+  position: fixed;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: left .6s cubic-bezier(.215,.61,.355,1), top .6s cubic-bezier(.215,.61,.355,1);
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#hero" class="nav-logo">Maison</a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Ambience</a></li>
+      <li><a href="#reservations">Reservations</a></li>
+    </ul>
+    <a href="#reservations" class="nav-reserve">Reserve</a>
+    <div class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" onclick="closeMobile()">Our Story</a>
+  <a href="#menu" onclick="closeMobile()">Menu</a>
+  <a href="#gallery" onclick="closeMobile()">Ambience</a>
+  <a href="#reservations" onclick="closeMobile()">Reservations</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-divider reveal"></div>
+    <h1 class="hero-name reveal reveal-delay-1">Maison</h1>
+    <p class="hero-tagline reveal reveal-delay-2">Contemporary French Cuisine</p>
+    <a href="#reservations" class="hero-cta reveal reveal-delay-3">Reserve a Table</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <img src="../images/Restaurant/michelin 6.JPG" alt="Elegantly plated dish at Maison" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p class="section-label reveal">Our Story</p>
+        <h2 class="section-heading reveal reveal-delay-1">A tradition of <em>excellence</em>, reimagined</h2>
+        <p class="about-body reveal reveal-delay-2">
+          Nestled in the heart of the city, Maison is where time-honoured French culinary traditions
+          meet bold contemporary vision. Every dish is an act of devotion &mdash; sourced from the finest
+          artisanal producers, composed with precision, and presented with a reverence for the craft
+          that has defined great dining for generations.
+        </p>
+        <p class="about-body reveal reveal-delay-3">
+          Our intimate 40-seat dining room invites you into an atmosphere of quiet luxury, where
+          candlelight dances across aged oak and every detail has been considered. This is not merely
+          a meal. It is a memory.
+        </p>
+        <p class="about-signature reveal reveal-delay-4">Chef Laurent Dubois</p>
+        <p class="about-sig-title reveal reveal-delay-4">Executive Chef &amp; Founder</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider reveal">
+  <div class="ornament">&diams;</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MENU HIGHLIGHTS
+     ═══════════════════════════════════════════ -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu-header">
+      <p class="section-label reveal">The Menu</p>
+      <h2 class="section-heading reveal reveal-delay-1">Seasonal Highlights</h2>
+      <p class="menu-subtitle reveal reveal-delay-2">A curated selection from our tasting menu</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item reveal">
+        <div class="menu-item-image">
+          <img src="../images/Restaurant/michelin 2.JPG" alt="Tartare de Boeuf - steak tartare on slate board" loading="lazy">
+        </div>
+        <div class="menu-item-body">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tartare de Boeuf</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">&euro;38</span>
+          </div>
+          <p class="menu-item-desc">
+            Hand-cut Aubrac beef, smoked egg yolk, shallot crumble, garden nasturtium.
+            Finished with aged Armagnac vinaigrette.
+          </p>
+          <span class="menu-item-tag">Signature</span>
+        </div>
+      </div>
+      <div class="menu-item reveal reveal-delay-1">
+        <div class="menu-item-image">
+          <img src="../images/Restaurant/michelin 4.JPG" alt="Homard Bleu - duck breast with sauce" loading="lazy">
+        </div>
+        <div class="menu-item-body">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Homard Bleu</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">&euro;62</span>
+          </div>
+          <p class="menu-item-desc">
+            Brittany blue lobster, bisque reduction, saffron tagliolini, coastal herbs.
+            A celebration of the Atlantic.
+          </p>
+        </div>
+      </div>
+      <div class="menu-item reveal reveal-delay-2">
+        <div class="menu-item-image">
+          <img src="../images/Restaurant/michelin 7.JPG" alt="Canard de Challans - beautifully plated dish" loading="lazy">
+        </div>
+        <div class="menu-item-body">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Canard de Challans</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">&euro;56</span>
+          </div>
+          <p class="menu-item-desc">
+            Dry-aged duck breast, cherry gastrique, parsnip silk, toasted hazelnuts.
+            Roasted to rose perfection.
+          </p>
+          <span class="menu-item-tag">Chef's Choice</span>
+        </div>
+      </div>
+      <div class="menu-item reveal reveal-delay-3">
+        <div class="menu-item-image">
+          <img src="../images/Restaurant/michelin 5.JPG" alt="Soufflé au Chocolat - chocolate soufflé with wine glass" loading="lazy">
+        </div>
+        <div class="menu-item-body">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Souffl&eacute; au Chocolat</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">&euro;28</span>
+          </div>
+          <p class="menu-item-desc">
+            Valrhona Guanaja 70% souffl&eacute;, cr&egrave;me anglaise, candied orange zest.
+            Requires 20 minutes &mdash; worth every second.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider reveal">
+  <div class="ornament">&diams;</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     GALLERY / AMBIENCE
+     ═══════════════════════════════════════════ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <p class="section-label reveal">The Space</p>
+      <h2 class="section-heading reveal reveal-delay-1">An atmosphere of <em style="font-style:italic; color:var(--gold)">quiet luxury</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 3.JPG" alt="The Dining Room" loading="lazy"></div>
+        <div class="overlay-text">The Dining Room</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 8.JPG" alt="Private Salon" loading="lazy"></div>
+        <div class="overlay-text">Private Salon</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 9.JPG" alt="The Bar" loading="lazy"></div>
+        <div class="overlay-text">The Bar</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 10.JPG" alt="Wine Cellar" loading="lazy"></div>
+        <div class="overlay-text">Wine Cellar</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-4">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 11.JPG" alt="The Terrace" loading="lazy"></div>
+        <div class="overlay-text">The Terrace</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-5">
+        <div class="placeholder"><img src="../images/Restaurant/michelin 2.JPG" alt="Chef's Table" loading="lazy"></div>
+        <div class="overlay-text">Chef's Table</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial Strip -->
+<section class="testimonial reveal">
+  <div class="container">
+    <p class="testimonial-quote">
+      &ldquo;An extraordinary dining experience that transcends the ordinary.
+      Maison is not just a restaurant &mdash; it is a destination.&rdquo;
+    </p>
+    <p class="testimonial-author">Le Guide Michelin &nbsp;&bull;&nbsp; Two Stars</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     RESERVATIONS
+     ═══════════════════════════════════════════ -->
+<section class="reservations" id="reservations">
+  <div class="container">
+    <div class="reservations-grid">
+      <div class="reservations-info">
+        <p class="section-label reveal">Reservations</p>
+        <h2 class="section-heading reveal reveal-delay-1">Begin your <em>evening</em></h2>
+        <p class="res-body reveal reveal-delay-2">
+          We recommend booking at least two weeks in advance for weekend dining.
+          For parties of six or more, or for special occasions, please contact us directly.
+        </p>
+        <div class="res-detail reveal reveal-delay-3">
+          <div class="res-detail-icon"><div class="dot"></div></div>
+          <div class="res-detail-text">
+            <strong>Location</strong>
+            42 Rue du Faubourg Saint-Honor&eacute;<br>75008 Paris, France
+          </div>
+        </div>
+        <div class="res-detail reveal reveal-delay-3">
+          <div class="res-detail-icon"><div class="dot"></div></div>
+          <div class="res-detail-text">
+            <strong>Hours</strong>
+            Tuesday &ndash; Saturday<br>
+            Lunch: 12:00 &ndash; 14:30<br>
+            Dinner: 19:00 &ndash; 22:30
+          </div>
+        </div>
+        <div class="res-detail reveal reveal-delay-4">
+          <div class="res-detail-icon"><div class="dot"></div></div>
+          <div class="res-detail-text">
+            <strong>Contact</strong>
+            +33 1 42 65 15 16<br>
+            reservations@maison-paris.com
+          </div>
+        </div>
+      </div>
+      <form class="reservation-form reveal reveal-delay-1" onsubmit="handleReservation(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="res-date">Date</label>
+            <input type="date" id="res-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="res-time">Time</label>
+            <select id="res-time" class="form-input" required>
+              <option value="" disabled selected>Select time</option>
+              <option>12:00</option>
+              <option>12:30</option>
+              <option>13:00</option>
+              <option>13:30</option>
+              <option>14:00</option>
+              <option>19:00</option>
+              <option>19:30</option>
+              <option>20:00</option>
+              <option>20:30</option>
+              <option>21:00</option>
+              <option>21:30</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="res-guests">Guests</label>
+            <select id="res-guests" class="form-input" required>
+              <option value="" disabled selected>Number of guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+              <option>7+ Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="res-name">Name</label>
+            <input type="text" id="res-name" class="form-input" placeholder="Your full name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="res-email">Email</label>
+          <input type="email" id="res-email" class="form-input" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="res-notes">Special Requests</label>
+          <textarea id="res-notes" class="form-input" rows="3" placeholder="Dietary requirements, celebrations, seating preferences..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Request Reservation</button>
+        <p class="form-note">We will confirm your reservation within 24 hours</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Maison</div>
+        <p class="footer-brand-text">
+          Contemporary French cuisine in the heart of Paris.
+          Two Michelin stars. Reservations recommended.
+        </p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Visit</p>
+        <ul>
+          <li><span>42 Rue du Faubourg</span></li>
+          <li><span>Saint-Honor&eacute;</span></li>
+          <li><span>75008 Paris</span></li>
+          <li><span>France</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Hours</p>
+        <ul>
+          <li><span>Tue &ndash; Sat</span></li>
+          <li><span>Lunch 12:00 &ndash; 14:30</span></li>
+          <li><span>Dinner 19:00 &ndash; 22:30</span></li>
+          <li><span>Sun &ndash; Mon Closed</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <ul>
+          <li><a href="tel:+33142651516">+33 1 42 65 15 16</a></li>
+          <li><a href="mailto:reservations@maison-paris.com">reservations@maison-paris.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Maison. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">TripAdvisor</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════ */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ═══════════════════════════════════════════
+   NAV SCROLL EFFECT
+   ═══════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const st = window.scrollY;
+  nav.classList.toggle('scrolled', st > 80);
+  lastScroll = st;
+}, { passive: true });
+
+/* ═══════════════════════════════════════════
+   HERO PARALLAX
+   ═══════════════════════════════════════════ */
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+  if (window.scrollY < window.innerHeight) {
+    const offset = window.scrollY * 0.3;
+    heroBg.style.transform = `scale(${1 + window.scrollY * 0.0002}) translateY(${offset}px)`;
+  }
+}, { passive: true });
+
+/* ═══════════════════════════════════════════
+   CURSOR GLOW
+   ═══════════════════════════════════════════ */
+const glow = document.getElementById('cursorGlow');
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+} else {
+  glow.style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE NAV
+   ═══════════════════════════════════════════ */
+const navToggle = document.getElementById('navToggle');
+const navMobile = document.getElementById('navMobile');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('active');
+  navMobile.classList.toggle('open');
+  document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+});
+function closeMobile() {
+  navToggle.classList.remove('active');
+  navMobile.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ═══════════════════════════════════════════
+   RESERVATION FORM
+   ═══════════════════════════════════════════ */
+function handleReservation(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Request Received';
+  btn.style.background = '#2a5a3a';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    btn.textContent = 'Request Reservation';
+    btn.style.background = '';
+    btn.style.pointerEvents = '';
+    e.target.reset();
+  }, 3000);
+}
+
+/* ═══════════════════════════════════════════
+   SMOOTH ANCHOR LINKS
+   ═══════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
