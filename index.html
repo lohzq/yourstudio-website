@@ -753,6 +753,46 @@
       color: var(--text-dim);
     }
 
+    /* Currency Switcher */
+    .currency-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .currency-switcher label {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+    .currency-switcher select {
+      padding: 8px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 30px;
+    }
+    .currency-switcher select:focus { border-color: var(--accent); }
+    .currency-approx {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
     @media (max-width: 768px) {
       .pricing-grid { grid-template-columns: 1fr; }
     }
@@ -1526,12 +1566,33 @@
       <div class="section-overline">Pricing</div>
       <div class="section-title">Simple, transparent<br>pricing.</div>
       <p class="section-desc">No hidden fees. No contracts. Cancel anytime.</p>
+      <div class="currency-switcher">
+        <label for="currencySelect">View prices in:</label>
+        <select id="currencySelect">
+          <option value="SGD" selected>🇸🇬 SGD</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="AUD">🇦🇺 AUD</option>
+          <option value="MYR">🇲🇾 MYR</option>
+          <option value="IDR">🇮🇩 IDR</option>
+          <option value="PHP">🇵🇭 PHP</option>
+          <option value="THB">🇹🇭 THB</option>
+          <option value="INR">🇮🇳 INR</option>
+          <option value="JPY">🇯🇵 JPY</option>
+          <option value="KRW">🇰🇷 KRW</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="HKD">🇭🇰 HKD</option>
+          <option value="TWD">🇹🇼 TWD</option>
+        </select>
+      </div>
+      <div id="currencyNote" class="currency-approx" style="display: none;">Prices shown are approximate. Final billing in SGD.</div>
     </div>
 
     <div class="pricing-grid reveal-stagger">
       <div class="pricing-card">
         <div class="pricing-tier">Starter</div>
-        <div class="pricing-amount">SGD$50 <span>/mo</span></div>
+        <div class="pricing-amount" data-sgd="50">SGD$50 <span>/mo</span></div>
         <p class="pricing-desc">A simple, professional website — fully managed, no hassle.</p>
         <ul class="pricing-features">
           <li>Custom single-page website</li>
@@ -1547,7 +1608,7 @@
       <div class="pricing-card popular">
         <div class="compare-badge">Most Popular</div>
         <div class="pricing-tier">Growth</div>
-        <div class="pricing-amount">SGD$100 <span>/mo</span></div>
+        <div class="pricing-amount" data-sgd="100">SGD$100 <span>/mo</span></div>
         <p class="pricing-desc">Your website, fully handled — updated anytime you need.</p>
         <ul class="pricing-features">
           <li>Custom multi-page website</li>
@@ -1563,7 +1624,7 @@
 
       <div class="pricing-card">
         <div class="pricing-tier">Pro</div>
-        <div class="pricing-amount">SGD$200 <span>/mo</span></div>
+        <div class="pricing-amount" data-sgd="200">SGD$200 <span>/mo</span></div>
         <p class="pricing-desc">A premium, always-updated website that reflects your brand.</p>
         <ul class="pricing-features">
           <li>Fully custom website</li>
@@ -1699,6 +1760,87 @@
         }
       });
     });
+
+    // Currency Switcher
+    (function() {
+      const select = document.getElementById('currencySelect');
+      const note = document.getElementById('currencyNote');
+      const priceEls = document.querySelectorAll('.pricing-amount[data-sgd]');
+      const contactOptions = document.querySelectorAll('#contactForm select option');
+      let rates = null;
+
+      // Fetch exchange rates from Frankfurter API (free, no key needed)
+      async function fetchRates() {
+        try {
+          const res = await fetch('https://api.frankfurter.app/latest?from=SGD');
+          const data = await res.json();
+          rates = data.rates;
+          rates['SGD'] = 1; // Add SGD itself
+        } catch (e) {
+          console.warn('Could not fetch exchange rates, defaulting to SGD');
+        }
+      }
+
+      function formatPrice(amount, currency) {
+        // Currencies with no decimals
+        const noDecimals = ['JPY', 'KRW', 'IDR', 'TWD'];
+        const opts = {
+          style: 'currency',
+          currency: currency,
+          minimumFractionDigits: noDecimals.includes(currency) ? 0 : 0,
+          maximumFractionDigits: noDecimals.includes(currency) ? 0 : 0,
+        };
+        return new Intl.NumberFormat('en-US', opts).format(amount);
+      }
+
+      function updatePrices(currency) {
+        if (currency === 'SGD') {
+          // Reset to original SGD prices
+          priceEls.forEach(el => {
+            const sgd = parseInt(el.dataset.sgd);
+            el.innerHTML = 'SGD$' + sgd + ' <span>/mo</span>';
+          });
+          note.style.display = 'none';
+          // Reset contact form options
+          contactOptions.forEach(opt => {
+            if (opt.value === 'starter') opt.textContent = 'Starter — SGD$50/mo';
+            if (opt.value === 'growth') opt.textContent = 'Growth — SGD$100/mo';
+            if (opt.value === 'pro') opt.textContent = 'Pro — SGD$200/mo';
+          });
+          return;
+        }
+
+        if (!rates || !rates[currency]) return;
+
+        const rate = rates[currency];
+        priceEls.forEach(el => {
+          const sgd = parseInt(el.dataset.sgd);
+          const converted = Math.round(sgd * rate);
+          el.innerHTML = formatPrice(converted, currency) + ' <span>/mo</span>';
+        });
+        note.style.display = 'block';
+
+        // Update contact form options
+        contactOptions.forEach(opt => {
+          if (opt.value === 'starter') opt.textContent = 'Starter — ' + formatPrice(Math.round(50 * rate), currency) + '/mo';
+          if (opt.value === 'growth') opt.textContent = 'Growth — ' + formatPrice(Math.round(100 * rate), currency) + '/mo';
+          if (opt.value === 'pro') opt.textContent = 'Pro — ' + formatPrice(Math.round(200 * rate), currency) + '/mo';
+        });
+
+        localStorage.setItem('preferredCurrency', currency);
+      }
+
+      select.addEventListener('change', () => updatePrices(select.value));
+
+      // Init
+      fetchRates().then(() => {
+        const saved = localStorage.getItem('preferredCurrency');
+        if (saved && saved !== 'SGD') {
+          select.value = saved;
+          updatePrices(saved);
+        }
+      });
+    })();
 
     // Contact form submission via Formspree
     document.getElementById('contactForm').addEventListener('submit', function(e) {

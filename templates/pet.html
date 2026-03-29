@@ -4,1748 +4,762 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pawsome — Premium Pet Services in Singapore</title>
+    <meta name="description" content="Pawsome offers premium pet grooming, boarding, daycare and veterinary services in East Coast, Singapore. AVS licensed. Book online or WhatsApp us.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --cream: #faf7f2;
-            --cream-dark: #f0ebe3;
-            --green: #65a30d;
-            --green-light: #84cc16;
-            --green-dark: #4d7c0f;
-            --brown: #3f2305;
-            --brown-light: #6b4423;
-            --brown-muted: #8b6f4e;
-            --orange: #ea580c;
-            --orange-light: #fb923c;
-            --coral: #f87171;
-            --white: #ffffff;
-            --shadow-sm: 0 1px 3px rgba(63,35,5,0.08);
-            --shadow-md: 0 4px 16px rgba(63,35,5,0.1);
-            --shadow-lg: 0 8px 32px rgba(63,35,5,0.12);
-            --shadow-xl: 0 16px 48px rgba(63,35,5,0.15);
-            --radius-sm: 8px;
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --radius-xl: 32px;
-        }
-
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--cream);
-            color: var(--brown);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Fredoka', sans-serif;
-            line-height: 1.2;
-        }
-
-        a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; display: block; }
-        button { cursor: pointer; border: none; font-family: inherit; }
-        ul { list-style: none; }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        .animate-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-
-        .animate-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animate-in.delay-1 { transition-delay: 0.1s; }
-        .animate-in.delay-2 { transition-delay: 0.2s; }
-        .animate-in.delay-3 { transition-delay: 0.3s; }
-        .animate-in.delay-4 { transition-delay: 0.4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
-        }
-
-        @keyframes paw-print {
-            0% { opacity: 0; transform: scale(0.5) rotate(-20deg); }
-            50% { opacity: 0.3; transform: scale(1) rotate(0deg); }
-            100% { opacity: 0; transform: scale(1.2) rotate(10deg); }
-        }
-
-        @keyframes bounce-subtle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(250, 247, 242, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(63,35,5,0.06);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            box-shadow: var(--shadow-md);
-        }
-
-        .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 72px;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--brown);
-        }
-
-        .nav-logo .paw-icon {
-            font-size: 1.8rem;
-            animation: wiggle 2s ease-in-out infinite;
-        }
-
-        .nav-logo span {
-            color: var(--green);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--brown-muted);
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--green);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover { color: var(--green); }
-        .nav-links a:hover::after { width: 100%; }
-
-        .nav-cta {
-            background: var(--green);
-            color: var(--white) !important;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(101,163,13,0.3);
-        }
-
-        .nav-cta:hover {
-            background: var(--green-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(101,163,13,0.4);
-        }
-
-        .nav-cta::after { display: none !important; }
-
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            padding: 8px;
-        }
-
-        .mobile-toggle span {
-            display: block;
-            width: 24px;
-            height: 2.5px;
-            background: var(--brown);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
-        .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-        /* ===== HERO ===== */
-        .hero {
-            padding: 140px 0 80px;
-            position: relative;
-            overflow: hidden;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(101,163,13,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(234,88,12,0.05) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(101,163,13,0.1);
-            color: var(--green-dark);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            border: 1px solid rgba(101,163,13,0.15);
-        }
-
-        .hero-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: bounce-subtle 1.5s ease-in-out infinite;
-        }
-
-        .hero h1 {
-            font-size: 3.8rem;
-            font-weight: 700;
-            color: var(--brown);
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            color: var(--green);
-            position: relative;
-        }
-
-        .hero h1 em::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: rgba(101,163,13,0.15);
-            border-radius: 4px;
-            z-index: -1;
-        }
-
-        .hero-text {
-            font-size: 1.15rem;
-            color: var(--brown-muted);
-            margin-bottom: 36px;
-            max-width: 520px;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--green);
-            color: var(--white);
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(101,163,13,0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--green-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(101,163,13,0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--white);
-            color: var(--brown);
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(63,35,5,0.1);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--green);
-            color: var(--green);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .hero-illustration {
-            width: 420px;
-            height: 420px;
-            background: linear-gradient(135deg, rgba(101,163,13,0.1), rgba(234,88,12,0.08));
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .hero-illustration::before {
-            content: '';
-            position: absolute;
-            inset: -15px;
-            border-radius: 50%;
-            border: 2px dashed rgba(101,163,13,0.2);
-            animation: spin 20s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .hero-emoji {
-            font-size: 8rem;
-            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.1));
-        }
-
-        .floating-badge {
-            position: absolute;
-            background: var(--white);
-            padding: 12px 20px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .floating-badge.badge-1 {
-            top: 20%;
-            right: -10px;
-            animation-delay: 0.5s;
-        }
-
-        .floating-badge.badge-2 {
-            bottom: 15%;
-            left: -10px;
-            animation-delay: 1.5s;
-        }
-
-        .floating-badge.badge-3 {
-            top: 5%;
-            left: 10%;
-            animation-delay: 1s;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 48px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(63,35,5,0.08);
-        }
-
-        .hero-stat strong {
-            display: block;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.8rem;
-            color: var(--green);
-        }
-
-        .hero-stat span {
-            font-size: 0.85rem;
-            color: var(--brown-muted);
-        }
-
-        /* ===== SECTION STYLES ===== */
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--green);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
-        }
-
-        .section-header h2 {
-            font-size: 2.8rem;
-            color: var(--brown);
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            color: var(--brown-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ===== SERVICES ===== */
-        .services {
-            background: var(--white);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            background: var(--cream);
-            border-radius: var(--radius-lg);
-            padding: 36px 28px;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--green);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: rgba(101,163,13,0.15);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.1);
-            animation: wiggle 0.5s ease;
-        }
-
-        .service-icon.grooming { background: rgba(101,163,13,0.12); }
-        .service-icon.boarding { background: rgba(234,88,12,0.1); }
-        .service-icon.daycare { background: rgba(59,130,246,0.1); }
-        .service-icon.vet { background: rgba(248,113,113,0.12); }
-
-        .service-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-            color: var(--brown);
-        }
-
-        .service-card p {
-            font-size: 0.9rem;
-            color: var(--brown-muted);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .service-price {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.1rem;
-            color: var(--green);
-            font-weight: 600;
-        }
-
-        .service-features {
-            margin-top: 16px;
-            text-align: left;
-        }
-
-        .service-features li {
-            font-size: 0.85rem;
-            color: var(--brown-muted);
-            padding: 4px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .service-features li::before {
-            content: '\2713';
-            color: var(--green);
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        /* ===== WHY US ===== */
-        .why-us {
-            position: relative;
-        }
-
-        .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .why-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 40px 32px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(63,35,5,0.05);
-        }
-
-        .why-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .why-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .why-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
-
-        .why-card p {
-            font-size: 0.92rem;
-            color: var(--brown-muted);
-            line-height: 1.7;
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials {
-            background: var(--white);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .testimonial-card {
-            background: var(--cream);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .testimonial-stars {
-            color: #f59e0b;
-            font-size: 1rem;
-            margin-bottom: 16px;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-text {
-            font-size: 0.95rem;
-            color: var(--brown);
-            line-height: 1.8;
-            margin-bottom: 24px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--white);
-        }
-
-        .testimonial-avatar.a1 { background: var(--green); }
-        .testimonial-avatar.a2 { background: var(--orange); }
-        .testimonial-avatar.a3 { background: #6366f1; }
-
-        .testimonial-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .testimonial-pet {
-            font-size: 0.82rem;
-            color: var(--brown-muted);
-        }
-
-        /* ===== PRICING ===== */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .pricing-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 40px 32px;
-            text-align: center;
-            border: 2px solid rgba(63,35,5,0.06);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .pricing-card.popular {
-            border-color: var(--green);
-            transform: scale(1.03);
-        }
-
-        .pricing-card.popular::before {
-            content: 'Most Popular';
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--green);
-            color: var(--white);
-            font-family: 'Fredoka', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 6px 24px;
-            border-radius: 50px;
-            white-space: nowrap;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .pricing-card.popular:hover {
-            transform: scale(1.03) translateY(-6px);
-        }
-
-        .pricing-emoji {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .pricing-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        .pricing-card .price {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--green);
-            margin: 16px 0 4px;
-        }
-
-        .pricing-card .price-unit {
-            font-size: 0.85rem;
-            color: var(--brown-muted);
-            margin-bottom: 24px;
-            display: block;
-        }
-
-        .pricing-features {
-            text-align: left;
-            margin-bottom: 32px;
-        }
-
-        .pricing-features li {
-            padding: 8px 0;
-            font-size: 0.9rem;
-            color: var(--brown-muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(63,35,5,0.04);
-        }
-
-        .pricing-features li:last-child { border-bottom: none; }
-
-        .pricing-features li .check {
-            color: var(--green);
-            font-weight: 700;
-        }
-
-        .pricing-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-btn.primary {
-            background: var(--green);
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(101,163,13,0.3);
-        }
-
-        .pricing-btn.primary:hover {
-            background: var(--green-dark);
-            transform: translateY(-2px);
-        }
-
-        .pricing-btn.outline {
-            background: transparent;
-            color: var(--green);
-            border: 2px solid var(--green);
-        }
-
-        .pricing-btn.outline:hover {
-            background: var(--green);
-            color: var(--white);
-        }
-
-        /* ===== GALLERY ===== */
-        .gallery {
-            background: var(--white);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .gallery-item {
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--cream), var(--cream-dark));
-            border-radius: var(--radius-lg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 3rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery-item::after {
-            content: attr(data-label);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 16px;
-            background: linear-gradient(transparent, rgba(63,35,5,0.7));
-            color: var(--white);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-align: center;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover::after {
-            transform: translateY(0);
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .gallery-item:nth-child(2) { grid-row: span 2; aspect-ratio: auto; }
-
-        /* ===== FAQ ===== */
-        .faq-list {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            margin-bottom: 12px;
-            border: 1px solid rgba(63,35,5,0.06);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: rgba(101,163,13,0.2);
-        }
-
-        .faq-question {
-            width: 100%;
-            padding: 22px 28px;
-            background: none;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--brown);
-            text-align: left;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .faq-question:hover { color: var(--green); }
-
-        .faq-toggle {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(101,163,13,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--green);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-item.active .faq-toggle {
-            background: var(--green);
-            color: var(--white);
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-        }
-
-        .faq-answer-inner {
-            padding: 0 28px 24px;
-            font-size: 0.92rem;
-            color: var(--brown-muted);
-            line-height: 1.8;
-        }
-
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            background: linear-gradient(135deg, var(--green), var(--green-dark));
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-        }
-
-        .cta-section::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -15%;
-            width: 500px;
-            height: 500px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 50%;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-section h2 {
-            font-size: 2.8rem;
-            color: var(--white);
-            margin-bottom: 16px;
-        }
-
-        .cta-section p {
-            font-size: 1.15rem;
-            color: rgba(255,255,255,0.85);
-            max-width: 550px;
-            margin: 0 auto 40px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--white);
-            color: var(--green-dark);
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-        }
-
-        .btn-whatsapp svg {
-            width: 22px;
-            height: 22px;
-            fill: #25d366;
-        }
-
-        .btn-outline-white {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: transparent;
-            color: var(--white);
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            border: 2px solid rgba(255,255,255,0.4);
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-white:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        .cta-paws {
-            position: absolute;
-            font-size: 4rem;
-            opacity: 0.07;
-            color: var(--white);
-        }
-
-        .cta-paws.p1 { top: 10%; left: 5%; transform: rotate(-25deg); }
-        .cta-paws.p2 { top: 60%; right: 8%; transform: rotate(15deg); }
-        .cta-paws.p3 { bottom: 10%; left: 30%; transform: rotate(-10deg); }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--brown);
-            color: rgba(255,255,255,0.7);
-            padding: 80px 0 0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand .nav-logo {
-            color: var(--white);
-            margin-bottom: 16px;
-        }
-
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .footer-avs {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.08);
-            padding: 8px 16px;
-            border-radius: var(--radius-sm);
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .footer-avs svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--green-light);
-        }
-
-        .footer h4 {
-            font-family: 'Fredoka', sans-serif;
-            color: var(--white);
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        .footer ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer ul li a {
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer ul li a:hover {
-            color: var(--green-light);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding: 28px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.82rem;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 16px;
-        }
-
-        .footer-socials a {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-socials a:hover {
-            background: var(--green);
-            transform: translateY(-2px);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero h1 { font-size: 3rem; }
-            .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-            .pricing-card.popular { transform: none; }
-            .pricing-card.popular:hover { transform: translateY(-6px); }
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-            .gallery-item:nth-child(2) { grid-row: auto; aspect-ratio: 1; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background: var(--cream);
-                padding: 32px 24px;
-                gap: 20px;
-                border-bottom: 1px solid rgba(63,35,5,0.08);
-                box-shadow: var(--shadow-lg);
-            }
-            .mobile-toggle { display: flex; }
-
-            .hero .container { grid-template-columns: 1fr; text-align: center; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero-text { margin: 0 auto 36px; }
-            .hero-buttons { justify-content: center; }
-            .hero-visual { order: -1; }
-            .hero-illustration { width: 280px; height: 280px; }
-            .hero-emoji { font-size: 5rem; }
-            .floating-badge { display: none; }
-            .hero-stats { justify-content: center; gap: 28px; }
-
-            .section { padding: 70px 0; }
-            .section-header h2 { font-size: 2rem; }
-
-            .services-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-            .why-us-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-            .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-
-            .cta-section h2 { font-size: 2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2rem; }
-            .btn-primary, .btn-secondary, .btn-whatsapp, .btn-outline-white { padding: 14px 28px; font-size: 0.92rem; }
-            .hero-stats { flex-direction: column; align-items: center; gap: 16px; }
-        }
+/* ===== RESET ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --coral: #ff6b6b;
+    --coral-light: #ffe0e0;
+    --coral-dark: #e55555;
+    --teal: #20c997;
+    --teal-light: #d3f9d8;
+    --yellow: #ffd43b;
+    --yellow-light: #fff9db;
+    --purple: #845ef7;
+    --purple-light: #e5dbff;
+    --sky: #74c0fc;
+    --sky-light: #d0ebff;
+    --bg: #fffcf7;
+    --white: #ffffff;
+    --dark: #2b2b2b;
+    --text: #555;
+    --text-light: #888;
+    --border: #eee;
+    --radius: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 40px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Nunito', -apple-system, sans-serif;
+    color: var(--dark);
+    background: var(--bg);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== FUN SHAPES ===== */
+.blob-1 {
+    position: absolute;
+    width: 300px; height: 300px;
+    background: var(--coral-light);
+    border-radius: 60% 40% 50% 70% / 50% 60% 40% 50%;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: blob 8s ease-in-out infinite;
+}
+.blob-2 {
+    position: absolute;
+    width: 250px; height: 250px;
+    background: var(--teal-light);
+    border-radius: 40% 60% 70% 30% / 60% 40% 50% 50%;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: blob 10s ease-in-out infinite reverse;
+}
+@keyframes blob {
+    0%, 100% { border-radius: 60% 40% 50% 70% / 50% 60% 40% 50%; }
+    25% { border-radius: 40% 60% 70% 30% / 60% 30% 70% 40%; }
+    50% { border-radius: 50% 50% 40% 60% / 40% 70% 30% 60%; }
+    75% { border-radius: 70% 30% 60% 40% / 50% 40% 60% 50%; }
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000; padding: 16px 0;
+    transition: all 0.3s;
+}
+.navbar.scrolled {
+    background: rgba(255,252,247,0.95);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+}
+.navbar .container { display: flex; align-items: center; justify-content: space-between; }
+.logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1.6rem;
+    display: flex; align-items: center; gap: 8px;
+}
+.logo .paw { font-size: 1.4rem; }
+.logo .coral { color: var(--coral); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 0.9rem; font-weight: 700; color: var(--text); transition: color 0.3s; }
+.nav-links a:hover { color: var(--coral); }
+.nav-cta a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--coral);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    font-weight: 800; font-size: 0.9rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(255,107,107,0.3);
+}
+.nav-cta a:hover { background: var(--coral-dark); transform: translateY(-2px) scale(1.02); }
+.mobile-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+}
+.mobile-toggle span { width: 24px; height: 3px; background: var(--dark); border-radius: 3px; transition: all 0.3s; }
+
+/* ===== HERO ===== */
+.hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 0 60px;
+    position: relative;
+    overflow: hidden;
+}
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+.hero-text h1 {
+    font-size: clamp(2.8rem, 5.5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+.hero-text .wave { display: inline-block; animation: wave 2s ease-in-out infinite; transform-origin: 70% 70%; }
+@keyframes wave { 0%,100% { transform: rotate(0); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-10deg); } }
+.hero-text p { font-size: 1.1rem; color: var(--text); max-width: 440px; margin-bottom: 32px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-coral {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 36px;
+    background: var(--coral);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(255,107,107,0.3);
+    border: none; cursor: pointer;
+}
+.btn-coral:hover { background: var(--coral-dark); transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 28px rgba(255,107,107,0.4); }
+.btn-outline-fun {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 36px;
+    background: var(--white);
+    color: var(--dark);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-xl);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.btn-outline-fun:hover { border-color: var(--coral); color: var(--coral); transform: translateY(-2px); }
+.hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+.hero-circle {
+    width: 420px; height: 420px;
+    background: linear-gradient(135deg, var(--coral-light), var(--yellow-light));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    animation: float 5s ease-in-out infinite;
+    position: relative;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+/* Floating badges around circle */
+.float-badge {
+    position: absolute;
+    padding: 10px 18px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    font-size: 0.85rem; font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+    animation: float 4s ease-in-out infinite;
+}
+.float-badge:nth-child(2) { top: 10%; right: -20px; animation-delay: -1s; }
+.float-badge:nth-child(3) { bottom: 15%; left: -30px; animation-delay: -2s; }
+.float-badge:nth-child(4) { bottom: 5%; right: 10%; animation-delay: -3s; }
+
+/* ===== SERVICES ===== */
+.services { padding: 100px 0; position: relative; }
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-tag {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: var(--radius-xl);
+    font-size: 0.82rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+.tag-coral { background: var(--coral-light); color: var(--coral); }
+.tag-teal { background: var(--teal-light); color: var(--teal); }
+.tag-purple { background: var(--purple-light); color: var(--purple); }
+.tag-yellow { background: var(--yellow-light); color: #e67700; }
+.section-title { font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 900; margin-bottom: 12px; }
+.section-subtitle { font-size: 1rem; color: var(--text); max-width: 460px; margin: 0 auto; }
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+.service-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    border: 2px solid var(--border);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    border-color: transparent;
+}
+.service-card:nth-child(1) { border-color: var(--coral-light); }
+.service-card:nth-child(1):hover { border-color: var(--coral); }
+.service-card:nth-child(2) { border-color: var(--teal-light); }
+.service-card:nth-child(2):hover { border-color: var(--teal); }
+.service-card:nth-child(3) { border-color: var(--purple-light); }
+.service-card:nth-child(3):hover { border-color: var(--purple); }
+.service-card:nth-child(4) { border-color: var(--sky-light); }
+.service-card:nth-child(4):hover { border-color: var(--sky); }
+.service-emoji { font-size: 3rem; margin-bottom: 16px; display: block; }
+.service-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+.service-card p { font-size: 0.92rem; color: var(--text); line-height: 1.7; margin-bottom: 16px; }
+.service-price {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: var(--radius-xl);
+    font-weight: 800; font-size: 0.85rem;
+}
+.service-card:nth-child(1) .service-price { background: var(--coral-light); color: var(--coral); }
+.service-card:nth-child(2) .service-price { background: var(--teal-light); color: var(--teal); }
+.service-card:nth-child(3) .service-price { background: var(--purple-light); color: var(--purple); }
+.service-card:nth-child(4) .service-price { background: var(--sky-light); color: var(--sky); }
+
+/* ===== WHY US ===== */
+.why-us {
+    padding: 100px 0;
+    background: var(--white);
+}
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.why-card {
+    text-align: center;
+    padding: 36px 24px;
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    transition: all 0.3s;
+}
+.why-card:hover { transform: translateY(-4px); }
+.why-card .emoji { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+.why-card h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+.why-card p { font-size: 0.88rem; color: var(--text); }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials { padding: 100px 0; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testi-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: all 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+.testi-card .pet-type {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem; font-weight: 800;
+    margin-bottom: 14px;
+}
+.testi-card:nth-child(1) .pet-type { background: var(--coral-light); color: var(--coral); }
+.testi-card:nth-child(2) .pet-type { background: var(--teal-light); color: var(--teal); }
+.testi-card:nth-child(3) .pet-type { background: var(--yellow-light); color: #e67700; }
+.testi-card .stars { color: var(--yellow); font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 2px; }
+.testi-card blockquote { font-size: 0.92rem; color: var(--text); line-height: 1.8; margin-bottom: 16px; }
+.testi-card .name { font-weight: 800; font-size: 0.9rem; }
+.testi-card .pet-name { font-size: 0.82rem; color: var(--text-light); }
+
+/* ===== PRICING ===== */
+.pricing { padding: 100px 0; background: var(--white); }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pricing-card {
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    border: 2px solid var(--border);
+    transition: all 0.4s;
+    position: relative;
+}
+.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+.pricing-card.popular {
+    border-color: var(--coral);
+    background: var(--white);
+}
+.pricing-card.popular::before {
+    content: 'Most Popular 🐾';
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    padding: 6px 20px;
+    background: var(--coral); color: #fff;
+    border-radius: var(--radius-xl);
+    font-size: 0.78rem; font-weight: 800;
+    white-space: nowrap;
+}
+.pricing-card .plan-emoji { font-size: 2.5rem; margin-bottom: 12px; }
+.pricing-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+.pricing-card .price { font-size: 2.5rem; font-weight: 900; margin-bottom: 4px; }
+.pricing-card .price span { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+.pricing-card .price-note { font-size: 0.82rem; color: var(--text-light); margin-bottom: 24px; }
+.pricing-card ul { margin-bottom: 28px; text-align: left; }
+.pricing-card ul li {
+    font-size: 0.88rem; color: var(--text);
+    padding: 8px 0;
+    display: flex; align-items: center; gap: 10px;
+}
+.pricing-card ul li::before { content: '✅'; font-size: 0.8rem; }
+.pricing-card .btn-coral { width: 100%; justify-content: center; }
+
+/* ===== FAQ ===== */
+.faq { padding: 100px 0; }
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item {
+    border-bottom: 2px solid var(--border);
+    padding: 20px 0;
+}
+.faq-q {
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--dark);
+    background: none; border: none;
+    width: 100%; text-align: left; padding: 0;
+}
+.faq-q .icon {
+    font-size: 1.5rem; color: var(--coral);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+.faq-item.open .faq-q .icon { transform: rotate(45deg); }
+.faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+.faq-a p { font-size: 0.92rem; color: var(--text); line-height: 1.8; }
+
+/* ===== CTA ===== */
+.cta { padding: 100px 0; text-align: center; }
+.cta-box {
+    background: linear-gradient(135deg, var(--coral), #ff8e8e);
+    border-radius: var(--radius-xl);
+    padding: 72px 48px;
+    position: relative;
+    overflow: hidden;
+}
+.cta-box h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; color: #fff; margin-bottom: 16px; }
+.cta-box p { font-size: 1.05rem; color: rgba(255,255,255,0.9); max-width: 460px; margin: 0 auto 32px; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 36px;
+    background: #fff; color: var(--coral);
+    border-radius: var(--radius-xl);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    transition: all 0.3s; border: none; cursor: pointer;
+}
+.btn-white:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.15); }
+
+/* ===== FOOTER ===== */
+.footer { padding: 40px 0; text-align: center; }
+.footer p { font-size: 0.85rem; color: var(--text-light); }
+.footer a { color: var(--coral); font-weight: 700; }
+
+/* ===== WHATSAPP FAB ===== */
+.whatsapp-fab {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px;
+    background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; color: #fff;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    z-index: 900; transition: transform 0.3s;
+}
+.whatsapp-fab:hover { transform: scale(1.1); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(255,252,247,0.98);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px;
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    color: var(--dark); transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--coral); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+    .hero-btns { justify-content: center; }
+    .hero-visual { margin-top: 40px; }
+    .hero-circle { width: 300px; height: 300px; font-size: 5rem; }
+    .float-badge { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .mobile-toggle { display: flex; }
+}
+
+/* ===== ANIMATIONS ===== */
+.pop { opacity: 0; transform: translateY(24px) scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease; }
+.pop.visible { opacity: 1; transform: translateY(0) scale(1); }
+.pop.d1 { transition-delay: 0.1s; }
+.pop.d2 { transition-delay: 0.2s; }
+.pop.d3 { transition-delay: 0.3s; }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <a href="#" class="nav-logo">
-                <span class="paw-icon">&#128062;</span>
-                Paw<span>some</span>
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="#services">Services</a>
-                <a href="#why-us">Why Us</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#faq">FAQ</a>
-                <a href="#contact" class="nav-cta">Book Now &#128062;</a>
-            </div>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#" class="logo"><span class="paw">🐾</span> Paw<span class="coral">some</span></a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#why">Why Us</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
         </div>
-    </nav>
+        <div class="nav-cta"><a href="#cta">Book Now</a></div>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge animate-in">
-                    <span class="dot"></span>
-                    AVS Licensed &bull; East Coast, Singapore
-                </div>
-                <h1 class="animate-in delay-1">
-                    Your Fur Babies<br>Deserve <em>Pawsome</em><br>Care
-                </h1>
-                <p class="hero-text animate-in delay-2">
-                    From pampering grooming sessions to cosy overnight boarding, we treat every pet like family. Trusted by 3,000+ pet parents across Singapore since 2018.
-                </p>
-                <div class="hero-buttons animate-in delay-3">
-                    <a href="#contact" class="btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        Book a Visit
-                    </a>
-                    <a href="#services" class="btn-secondary">
-                        Explore Services &#8595;
-                    </a>
-                </div>
-                <div class="hero-stats animate-in delay-4">
-                    <div class="hero-stat">
-                        <strong>3,000+</strong>
-                        <span>Happy Pet Parents</span>
-                    </div>
-                    <div class="hero-stat">
-                        <strong>4.9 &#9733;</strong>
-                        <span>Google Rating</span>
-                    </div>
-                    <div class="hero-stat">
-                        <strong>8 Years</strong>
-                        <span>Of Pawsome Care</span>
-                    </div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#why">Why Us</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#cta" class="btn-coral" style="margin-top: 16px;">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="blob-1" style="top: -50px; left: -80px;"></div>
+    <div class="blob-2" style="bottom: 0; right: -60px;"></div>
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-text pop">
+                <h1>Your pet deserves the best care <span class="wave">🐶</span></h1>
+                <p>Premium grooming, boarding, daycare & vet care in East Coast, Singapore. Because they're not just pets — they're family.</p>
+                <div class="hero-btns">
+                    <a href="#cta" class="btn-coral">Book Now →</a>
+                    <a href="#services" class="btn-outline-fun">Our Services</a>
                 </div>
             </div>
-            <div class="hero-visual animate-in delay-2">
-                <div class="hero-illustration">
-                    <span class="hero-emoji">&#128054;</span>
-                    <div class="floating-badge badge-1">&#128156; 3,000+ happy pets</div>
-                    <div class="floating-badge badge-2">&#11088; 4.9/5 rating</div>
-                    <div class="floating-badge badge-3">&#128062; AVS Licensed</div>
-                </div>
+            <div class="hero-visual pop d1">
+                <div class="hero-circle">🐕</div>
+                <div class="float-badge" style="top: 10%; right: -20px;">⭐ 4.9 Rating</div>
+                <div class="float-badge" style="bottom: 15%; left: -30px;">🏥 AVS Licensed</div>
+                <div class="float-badge" style="bottom: 5%; right: 10%;">🐾 2000+ Pets</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- SERVICES -->
-    <section class="section services" id="services">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#9996;&#65039; What We Do</div>
-                <h2>Tail-Wagging Services</h2>
-                <p>Everything your fur baby needs under one roof, delivered with love and professional care.</p>
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header pop">
+            <div class="section-tag tag-coral">Our Services</div>
+            <h2 class="section-title">Everything for your furry friend</h2>
+            <p class="section-subtitle">Professional pet care with love and attention to every detail.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card pop">
+                <span class="service-emoji">✂️</span>
+                <h3>Pet Grooming</h3>
+                <p>Full grooming packages including bath, haircut, nail trimming, ear cleaning & teeth brushing. All breeds welcome.</p>
+                <span class="service-price">From SGD$60</span>
             </div>
-            <div class="services-grid">
-                <div class="service-card animate-in delay-1">
-                    <div class="service-icon grooming">&#128021;</div>
-                    <h3>Pet Grooming</h3>
-                    <p>Full grooming services from bath &amp; blow-dry to breed-specific styling. We use premium, pet-safe shampoos and handle every furry client with gentle care.</p>
-                    <div class="service-price">From SGD $60</div>
-                    <ul class="service-features">
-                        <li>Bath, blow-dry &amp; brushing</li>
-                        <li>Nail trimming &amp; ear cleaning</li>
-                        <li>Breed-specific styling</li>
-                        <li>De-shedding treatments</li>
-                    </ul>
-                </div>
-                <div class="service-card animate-in delay-2">
-                    <div class="service-icon boarding">&#127968;</div>
-                    <h3>Pet Boarding</h3>
-                    <p>Home-away-from-home boarding with spacious, air-conditioned suites. Your pet gets playtime, belly rubs, and daily photo updates sent to you.</p>
-                    <div class="service-price">From SGD $45/night</div>
-                    <ul class="service-features">
-                        <li>Air-conditioned suites</li>
-                        <li>Daily photo &amp; video updates</li>
-                        <li>3 meals + treats included</li>
-                        <li>24/7 supervision &amp; CCTV</li>
-                    </ul>
-                </div>
-                <div class="service-card animate-in delay-3">
-                    <div class="service-icon daycare">&#127934;</div>
-                    <h3>Pet Daycare</h3>
-                    <p>Keep your pup socialised and active while you're at work. Structured play sessions, rest time, and enrichment activities throughout the day.</p>
-                    <div class="service-price">From SGD $38/day</div>
-                    <ul class="service-features">
-                        <li>Supervised group play</li>
-                        <li>Temperament-matched groups</li>
-                        <li>Indoor &amp; outdoor play areas</li>
-                        <li>Flexible half-day options</li>
-                    </ul>
-                </div>
-                <div class="service-card animate-in delay-4">
-                    <div class="service-icon vet">&#129658;</div>
-                    <h3>Vet Visits</h3>
-                    <p>Partnered with licensed veterinarians for on-site check-ups, vaccinations, dental care, and health screenings. Your pet's health, simplified.</p>
-                    <div class="service-price">From SGD $50</div>
-                    <ul class="service-features">
-                        <li>General health check-ups</li>
-                        <li>Vaccination schedules</li>
-                        <li>Dental cleaning</li>
-                        <li>Microchipping service</li>
-                    </ul>
-                </div>
+            <div class="service-card pop d1">
+                <span class="service-emoji">🏠</span>
+                <h3>Pet Boarding</h3>
+                <p>Safe, comfortable overnight stays with 24/7 supervision. Individual suites with webcam access so you never miss them.</p>
+                <span class="service-price">From SGD$55/night</span>
+            </div>
+            <div class="service-card pop d2">
+                <span class="service-emoji">☀️</span>
+                <h3>Daycare</h3>
+                <p>Supervised playtime and socialisation in our spacious indoor-outdoor facility. Perfect for busy pet parents.</p>
+                <span class="service-price">From SGD$35/day</span>
+            </div>
+            <div class="service-card pop d3">
+                <span class="service-emoji">🩺</span>
+                <h3>Vet Clinic</h3>
+                <p>In-house veterinary care including vaccinations, health checks, dental care, and minor procedures. Caring vets on staff.</p>
+                <span class="service-price">From SGD$80/consult</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- WHY US -->
-    <section class="section why-us" id="why-us">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#128149; Why Pet Parents Love Us</div>
-                <h2>We're Not Just Pet Care. We're Family.</h2>
-                <p>Here's why thousands of Singapore pet parents trust Pawsome with their precious fur babies.</p>
+<!-- WHY US -->
+<section class="why-us" id="why">
+    <div class="container">
+        <div class="section-header pop">
+            <div class="section-tag tag-teal">Why Pawsome</div>
+            <h2 class="section-title">We treat them like our own</h2>
+        </div>
+        <div class="why-grid">
+            <div class="why-card pop">
+                <span class="emoji">👩‍⚕️</span>
+                <h4>Certified Groomers</h4>
+                <p>All groomers are professionally trained with 5+ years average experience</p>
             </div>
-            <div class="why-us-grid">
-                <div class="why-card animate-in delay-1">
-                    <span class="why-card-icon">&#128272;</span>
-                    <h3>AVS Licensed &amp; Insured</h3>
-                    <p>Fully licensed by the Animal &amp; Veterinary Service (AVS). Your pet's safety and well-being is protected by Singapore's highest regulatory standards.</p>
-                </div>
-                <div class="why-card animate-in delay-2">
-                    <span class="why-card-icon">&#128248;</span>
-                    <h3>Daily Photo Updates</h3>
-                    <p>Miss your fur baby? We send adorable photos and videos via WhatsApp throughout the day so you never miss a wag, purr, or silly moment.</p>
-                </div>
-                <div class="why-card animate-in delay-3">
-                    <span class="why-card-icon">&#129505;</span>
-                    <h3>Fear-Free Certified Staff</h3>
-                    <p>Our groomers and carers are trained in fear-free handling techniques. We minimise stress so your pet actually enjoys coming to see us.</p>
-                </div>
-                <div class="why-card animate-in delay-1">
-                    <span class="why-card-icon">&#127777;&#65039;</span>
-                    <h3>Climate-Controlled Facility</h3>
-                    <p>Full air-conditioning and HEPA filtration throughout. Singapore's heat stays outside while your pet stays cool, comfortable, and happy indoors.</p>
-                </div>
-                <div class="why-card animate-in delay-2">
-                    <span class="why-card-icon">&#128692;</span>
-                    <h3>Pickup &amp; Delivery</h3>
-                    <p>No time to drop off? We offer pet transport services across the East Coast area. Just book via WhatsApp and we'll handle the rest.</p>
-                </div>
-                <div class="why-card animate-in delay-3">
-                    <span class="why-card-icon">&#128062;</span>
-                    <h3>Small Batch Care</h3>
-                    <p>We intentionally limit daily bookings to ensure every pet gets personalised attention. No overcrowding, no rushed sessions — just quality time.</p>
-                </div>
+            <div class="why-card pop d1">
+                <span class="emoji">📹</span>
+                <h4>Live Webcam</h4>
+                <p>Watch your pet anytime with our live webcam feed during boarding & daycare</p>
+            </div>
+            <div class="why-card pop d2">
+                <span class="emoji">🏥</span>
+                <h4>AVS Licensed</h4>
+                <p>Fully licensed by the Animal & Veterinary Service for your peace of mind</p>
+            </div>
+            <div class="why-card pop">
+                <span class="emoji">🌿</span>
+                <h4>Organic Products</h4>
+                <p>We use only pet-safe, organic shampoos and grooming products</p>
+            </div>
+            <div class="why-card pop d1">
+                <span class="emoji">🚗</span>
+                <h4>Pick-up & Drop-off</h4>
+                <p>Complimentary transport service within 10km of our East Coast location</p>
+            </div>
+            <div class="why-card pop d2">
+                <span class="emoji">💊</span>
+                <h4>In-House Vet</h4>
+                <p>Licensed vet on-site for immediate medical attention when needed</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- TESTIMONIALS -->
-    <section class="section testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#11088; What Pet Parents Say</div>
-                <h2>Loved by Pets (and Their Humans)</h2>
-                <p>Don't take our word for it. Here's what our fur family has to say.</p>
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header pop">
+            <div class="section-tag tag-purple">Happy Pets & Parents</div>
+            <h2 class="section-title">What pet parents say</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testi-card pop">
+                <span class="pet-type">🐕 Dog</span>
+                <div class="stars">★★★★★</div>
+                <blockquote>"My golden retriever Max loves coming here! The groomers are so gentle and he always comes back looking and smelling amazing."</blockquote>
+                <div class="name">Sarah Chen</div>
+                <div class="pet-name">Max's mom 🐕</div>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card animate-in delay-1">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"Mochi used to hate grooming sessions. After switching to Pawsome, she actually gets excited when we pull up! The groomers are so patient and gentle. Best decision ever."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar a1">S</div>
-                        <div>
-                            <div class="testimonial-name">Sarah Tan</div>
-                            <div class="testimonial-pet">Mochi's mum &#128054; Shih Tzu</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card animate-in delay-2">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"We board Biscuit here every time we travel. The daily photos and videos give us so much peace of mind. He always comes home happy and well-fed. Truly a home away from home!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar a2">J</div>
-                        <div>
-                            <div class="testimonial-name">James &amp; Priya</div>
-                            <div class="testimonial-pet">Biscuit's parents &#128021; Golden Retriever</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card animate-in delay-3">
-                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"As a cat owner, I was worried about finding a place that truly understands feline needs. Pawsome has a dedicated cat area — quiet, calm, and separate from the dogs. Whiskers approves!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar a3">M</div>
-                        <div>
-                            <div class="testimonial-name">Michelle Lim</div>
-                            <div class="testimonial-pet">Whiskers' hooman &#128049; British Shorthair</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="testi-card pop d1">
+                <span class="pet-type">🐱 Cat</span>
+                <div class="stars">★★★★★</div>
+                <blockquote>"I was nervous about boarding my cat Luna, but the webcam feature put my mind at ease. She looked so comfortable the whole time!"</blockquote>
+                <div class="name">David Lim</div>
+                <div class="pet-name">Luna's dad 🐱</div>
+            </div>
+            <div class="testi-card pop d2">
+                <span class="pet-type">🐕 Dog</span>
+                <div class="stars">★★★★★</div>
+                <blockquote>"Best pet daycare in Singapore! My pomeranian Mochi has made so many friends. The staff sends me daily photo updates."</blockquote>
+                <div class="name">Jessica Ng</div>
+                <div class="pet-name">Mochi's mom 🐕</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- PRICING -->
-    <section class="section pricing" id="pricing">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#128176; Transparent Pricing</div>
-                <h2>Simple, Honest Pricing</h2>
-                <p>No hidden fees, no surprises. Just straightforward pricing for pawsome care.</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card animate-in delay-1">
-                    <span class="pricing-emoji">&#9986;&#65039;</span>
-                    <h3>Grooming</h3>
-                    <div class="price">$60</div>
-                    <span class="price-unit">Starting from / per session</span>
-                    <ul class="pricing-features">
-                        <li><span class="check">&#10003;</span> Full bath &amp; blow-dry</li>
-                        <li><span class="check">&#10003;</span> Nail trim &amp; ear cleaning</li>
-                        <li><span class="check">&#10003;</span> Sanitary trim</li>
-                        <li><span class="check">&#10003;</span> Teeth brushing</li>
-                        <li><span class="check">&#10003;</span> Bandana or bow tie &#127872;</li>
-                    </ul>
-                    <a href="#contact" class="pricing-btn outline">Book Grooming</a>
-                </div>
-                <div class="pricing-card popular animate-in delay-2">
-                    <span class="pricing-emoji">&#127968;</span>
-                    <h3>Boarding</h3>
-                    <div class="price">$45</div>
-                    <span class="price-unit">Starting from / per night</span>
-                    <ul class="pricing-features">
-                        <li><span class="check">&#10003;</span> Private air-con suite</li>
-                        <li><span class="check">&#10003;</span> 3 meals + treats daily</li>
-                        <li><span class="check">&#10003;</span> Daily photo updates</li>
-                        <li><span class="check">&#10003;</span> Supervised playtime</li>
-                        <li><span class="check">&#10003;</span> 24/7 CCTV monitoring</li>
-                        <li><span class="check">&#10003;</span> Free grooming (5+ nights)</li>
-                    </ul>
-                    <a href="#contact" class="pricing-btn primary">Book Boarding</a>
-                </div>
-                <div class="pricing-card animate-in delay-3">
-                    <span class="pricing-emoji">&#128054;</span>
-                    <h3>Daycare</h3>
-                    <div class="price">$38</div>
-                    <span class="price-unit">Starting from / per day</span>
-                    <ul class="pricing-features">
-                        <li><span class="check">&#10003;</span> Full day (8am - 7pm)</li>
-                        <li><span class="check">&#10003;</span> Group play sessions</li>
-                        <li><span class="check">&#10003;</span> Lunch included</li>
-                        <li><span class="check">&#10003;</span> Rest &amp; nap time</li>
-                        <li><span class="check">&#10003;</span> 10-pack: $340 (save $40!)</li>
-                    </ul>
-                    <a href="#contact" class="pricing-btn outline">Book Daycare</a>
-                </div>
-            </div>
-            <p style="text-align:center; margin-top:36px; font-size:0.88rem; color:var(--brown-muted);">
-                * Prices vary by breed, size, and coat condition. Cat grooming starts from $50. GST included. Pickup &amp; delivery available at additional cost.
-            </p>
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <div class="section-header pop">
+            <div class="section-tag tag-yellow">Pricing</div>
+            <h2 class="section-title">Simple, tail-wagging prices</h2>
+            <p class="section-subtitle">No hidden fees. Just honest pricing for honest care.</p>
         </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="section gallery" id="gallery">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#128247; Life at Pawsome</div>
-                <h2>A Sneak Peek Into Our World</h2>
-                <p>Happy tails, fresh cuts, and all the belly rubs in between.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card pop">
+                <div class="plan-emoji">🛁</div>
+                <h3>Basic Groom</h3>
+                <div class="price">SGD$60<span>/session</span></div>
+                <div class="price-note">Small breeds · 1-1.5 hours</div>
+                <ul>
+                    <li>Bath & blow dry</li>
+                    <li>Nail trimming</li>
+                    <li>Ear cleaning</li>
+                    <li>Brush & detangle</li>
+                    <li>Cologne spritz</li>
+                </ul>
+                <a href="#cta" class="btn-coral">Book Now</a>
             </div>
-            <div class="gallery-grid animate-in">
-                <div class="gallery-item" data-label="Fresh groom day!">&#128021;</div>
-                <div class="gallery-item" data-label="Nap time bliss">&#128049;</div>
-                <div class="gallery-item" data-label="Playdate squad">&#128054;</div>
-                <div class="gallery-item" data-label="Spa treatment">&#128038;</div>
-                <div class="gallery-item" data-label="Best friends">&#128062;</div>
-                <div class="gallery-item" data-label="Pool party!">&#128059;</div>
-                <div class="gallery-item" data-label="Zoomies central">&#128048;</div>
+            <div class="pricing-card popular pop d1">
+                <div class="plan-emoji">✨</div>
+                <h3>Full Groom</h3>
+                <div class="price">SGD$95<span>/session</span></div>
+                <div class="price-note">All breeds · 2-3 hours</div>
+                <ul>
+                    <li>Everything in Basic</li>
+                    <li>Full haircut & styling</li>
+                    <li>Teeth brushing</li>
+                    <li>Paw pad treatment</li>
+                    <li>Photo after grooming</li>
+                </ul>
+                <a href="#cta" class="btn-coral">Book Now</a>
             </div>
-            <p style="text-align:center; margin-top:32px; color:var(--brown-muted); font-size:0.9rem;">
-                Follow us on <a href="#" style="color:var(--green); font-weight:600;">Instagram @pawsomesg</a> for daily cuteness overload &#128248;
-            </p>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section faq" id="faq">
-        <div class="container">
-            <div class="section-header animate-in">
-                <div class="section-label">&#129300; Common Questions</div>
-                <h2>Frequently Asked Questions</h2>
-                <p>Got questions? We've got answers. If you don't see yours here, just WhatsApp us!</p>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item animate-in">
-                    <button class="faq-question">
-                        <span>Is Pawsome licensed by AVS?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Yes! Pawsome is fully licensed by the Animal &amp; Veterinary Service (AVS) under Singapore's Animal and Birds Act. We maintain the highest standards of animal welfare, hygiene, and facility management. Our license number is displayed at our premises, and you're welcome to verify it anytime.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item animate-in delay-1">
-                    <button class="faq-question">
-                        <span>What vaccinations does my pet need for boarding/daycare?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            For dogs, we require up-to-date core vaccinations (DHPP and Rabies) plus Bordetella (kennel cough). For cats, we require FVRCP and Rabies vaccinations. All pets must also be on regular flea and tick prevention. Please bring your pet's vaccination records on the first visit.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item animate-in delay-2">
-                    <button class="faq-question">
-                        <span>Do you offer pickup and delivery?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Yes! We offer pet pickup and delivery within the East Coast area (Bedok, Tampines, Marine Parade, Katong, Siglap). Rates start from $15 one-way depending on distance. Just let us know when booking and we'll arrange everything. We use secure, comfortable pet carriers for transport.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item animate-in delay-3">
-                    <button class="faq-question">
-                        <span>How do I book and what's your cancellation policy?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Booking is easy — just WhatsApp us at +65 8123 4567 or use our online booking form. We recommend booking grooming at least 3 days in advance, and boarding at least 1 week ahead (especially during peak periods like school holidays and Chinese New Year). Cancellations made 24+ hours before your appointment are fully refundable.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item animate-in delay-4">
-                    <button class="faq-question">
-                        <span>Can I visit the facility before booking?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Absolutely! We encourage all new pet parents to schedule a facility tour. You can see our grooming stations, boarding suites, play areas, and meet our team. We're open for tours Monday to Saturday, 10am - 5pm. Just drop us a message to arrange a time. We believe transparency builds trust!
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item animate-in">
-                    <button class="faq-question">
-                        <span>Do you cater to cats as well?</span>
-                        <span class="faq-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-inner">
-                            Yes, we love our feline friends! We have a dedicated cat zone that's completely separate from the dog area — quiet, calm, and designed for cats who prefer their own space. Our cat groomers are specially trained in feline handling. Cat grooming starts from $50 and cat boarding from $40/night.
-                        </div>
-                    </div>
-                </div>
+            <div class="pricing-card pop d2">
+                <div class="plan-emoji">🏠</div>
+                <h3>Board & Groom</h3>
+                <div class="price">SGD$120<span>/night</span></div>
+                <div class="price-note">Includes full groom</div>
+                <ul>
+                    <li>Private suite</li>
+                    <li>Full grooming session</li>
+                    <li>3 walks per day</li>
+                    <li>24/7 webcam access</li>
+                    <li>Daily photo updates</li>
+                </ul>
+                <a href="#cta" class="btn-coral">Book Now</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- CTA / CONTACT -->
-    <section class="cta-section" id="contact">
-        <span class="cta-paws p1">&#128062;</span>
-        <span class="cta-paws p2">&#128062;</span>
-        <span class="cta-paws p3">&#128062;</span>
-        <div class="container">
-            <div class="cta-content animate-in">
-                <h2>Ready to Give Your Pet<br>the Pawsome Treatment?</h2>
-                <p>Book your first visit today and enjoy 15% off any service. Your fur baby will thank you with extra tail wags and purrs!</p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/6581234567?text=Hi%20Pawsome!%20I'd%20like%20to%20book%20a%20service%20for%20my%20pet%20%F0%9F%90%BE" class="btn-whatsapp" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        WhatsApp Us
-                    </a>
-                    <a href="tel:+6581234567" class="btn-outline-white">
-                        &#128222; Call +65 8123 4567
-                    </a>
-                </div>
-                <p style="margin-top:28px; font-size:0.9rem; opacity:0.8; color:white;">
-                    &#128205; 123 East Coast Road, #01-45, Singapore 428803<br>
-                    &#128338; Mon-Sat: 9am - 7pm &bull; Sun: 10am - 5pm
-                </p>
+<!-- FAQ -->
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="section-header pop">
+            <div class="section-tag tag-coral">FAQ</div>
+            <h2 class="section-title">Got questions?</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item open">
+                <button class="faq-q">What vaccinations does my pet need for boarding? <span class="icon">+</span></button>
+                <div class="faq-a"><p>All dogs must be up-to-date on core vaccinations (DHPP, Rabies, Bordetella). Cats require FVRCP and Rabies. We'll need to see vaccination records at check-in.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">How often should I groom my pet? <span class="icon">+</span></button>
+                <div class="faq-a"><p>We recommend grooming every 4-6 weeks for most breeds. Dogs with longer coats may need more frequent visits (every 3-4 weeks). We'll advise based on your pet's breed.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">Do you accept all breeds and sizes? <span class="icon">+</span></button>
+                <div class="faq-a"><p>Yes! We welcome all breeds and sizes — from tiny chihuahuas to giant great danes. We also groom cats, rabbits, and other small animals.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">Is there a vet on-site? <span class="icon">+</span></button>
+                <div class="faq-a"><p>Yes, we have a licensed veterinarian on-site during business hours. For after-hours emergencies during boarding stays, we have a direct line to a 24-hour emergency vet clinic.</p></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="nav-logo">
-                        <span class="paw-icon">&#128062;</span>
-                        Paw<span>some</span>
-                    </div>
-                    <p>Premium pet grooming, boarding, daycare, and veterinary services in Singapore's East Coast. Where every pet is treated like family.</p>
-                    <div class="footer-avs">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-                        AVS Licensed Facility
-                    </div>
-                </div>
-                <div>
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">Pet Grooming</a></li>
-                        <li><a href="#services">Pet Boarding</a></li>
-                        <li><a href="#services">Pet Daycare</a></li>
-                        <li><a href="#services">Vet Visits</a></li>
-                        <li><a href="#services">Pickup &amp; Delivery</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#why-us">About Us</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:+6581234567">+65 8123 4567</a></li>
-                        <li><a href="mailto:hello@pawsome.sg">hello@pawsome.sg</a></li>
-                        <li><a href="#">123 East Coast Road</a></li>
-                        <li><a href="#">#01-45, S(428803)</a></li>
-                    </ul>
-                </div>
+<!-- CTA -->
+<section class="cta" id="cta">
+    <div class="container">
+        <div class="cta-box pop">
+            <h2>Ready to pamper your pet? 🐾</h2>
+            <p>Book online or WhatsApp us. Walk-ins welcome but appointments are recommended.</p>
+            <div class="cta-btns">
+                <a href="https://wa.me/6591234567?text=Hi%2C%20I'd%20like%20to%20book%20a%20pet%20service" class="btn-white" target="_blank">WhatsApp Us →</a>
+                <a href="tel:+6591234567" class="btn-white" style="background: rgba(255,255,255,0.2); color: #fff;">Call 9123 4567</a>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 Pawsome Pte Ltd. All rights reserved. UEN: 201812345A</span>
-                <div class="footer-socials">
-                    <a href="#" aria-label="Instagram">&#128247;</a>
-                    <a href="#" aria-label="Facebook">f</a>
-                    <a href="#" aria-label="TikTok">&#9835;</a>
-                    <a href="#" aria-label="WhatsApp">&#128172;</a>
-                </div>
-            </div>
+            <p style="margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.8);">📍 112 East Coast Road, #01-05, Singapore 428802</p>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script>
-        // ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS =====
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 Pawsome. All rights reserved.</p>
+        <p style="margin-top: 8px;">Made by <a href="https://yourstudiodesign.netlify.app" target="_blank">Studio</a></p>
+    </div>
+</footer>
 
-        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+<!-- WHATSAPP -->
+<a href="https://wa.me/6591234567" class="whatsapp-fab" target="_blank">💬</a>
 
-        // ===== NAVBAR SCROLL EFFECT =====
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 20);
-        });
+<script>
+// Navbar
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
 
-        // ===== MOBILE MENU TOGGLE =====
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
+// Mobile menu
+const toggle = document.getElementById('mobileToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }));
 
-        mobileToggle.addEventListener('click', () => {
-            mobileToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    });
+});
 
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // ===== FAQ ACCORDION =====
-        document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.parentElement;
-                const isActive = item.classList.contains('active');
-
-                // Close all
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-
-                // Open clicked if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.pop').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>

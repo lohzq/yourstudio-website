@@ -7,1961 +7,839 @@
 <meta name="description" content="Bloom & Co. is a premium wedding planning and floral design studio in Singapore, crafting timeless celebrations at iconic venues like Capella, Raffles, and CHIJMES.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ========== RESET & BASE ========== */
+/* ===== RESET ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --cream: #fdfbf7;
-  --rose: #c2727e;
-  --rose-light: #d4949d;
-  --rose-pale: #f0dde0;
-  --rose-deep: #a25563;
-  --charcoal: #2d2d2d;
-  --charcoal-light: #5a5a5a;
-  --gold: #c9a96e;
-  --gold-light: #e0d2b4;
-  --white: #ffffff;
-  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'Mulish', 'Helvetica Neue', Arial, sans-serif;
+    --cream: #faf8f3;
+    --warm: #f3ede4;
+    --olive: #5c6b4f;
+    --olive-light: #8a9a78;
+    --olive-pale: #e8ede4;
+    --charcoal: #2a2a2a;
+    --text: #5a5a5a;
+    --text-light: #8a8a8a;
+    --gold: #b8a07e;
+    --gold-light: #d4c5a9;
+    --white: #ffffff;
+    --border: #e5e0d8;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Outfit', 'Helvetica Neue', sans-serif;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--cream);
-  color: var(--charcoal);
-  line-height: 1.7;
-  font-weight: 400;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--rose); text-decoration: none; transition: color 0.3s ease; }
-a:hover { color: var(--rose-deep); }
-
+a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
-/* ========== TYPOGRAPHY ========== */
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--charcoal);
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 24px 0;
+    transition: all 0.4s ease;
 }
-
-.section-label {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 1rem;
-  display: block;
+.navbar.scrolled {
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
 }
-
-.section-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  margin-bottom: 1.5rem;
-  font-weight: 300;
+.navbar .container {
+    display: flex; align-items: center; justify-content: space-between;
 }
-
-.section-subtitle {
-  font-size: 1.05rem;
-  color: var(--charcoal-light);
-  max-width: 560px;
-  margin: 0 auto 3rem;
-  line-height: 1.8;
-  font-weight: 300;
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 0.02em;
 }
-
-/* ========== UTILITIES ========== */
-.container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.text-center { text-align: center; }
-
-.section-padding {
-  padding: 7rem 0;
-}
-
-/* ========== DECORATIVE ELEMENTS ========== */
-.floral-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2rem auto;
-  width: 200px;
-}
-
-.floral-divider::before,
-.floral-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--rose-light);
-}
-
-.floral-divider svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--rose);
-  flex-shrink: 0;
-}
-
-.ornament {
-  display: inline-block;
-  width: 60px;
-  height: 1px;
-  background: var(--rose-light);
-  margin: 1.5rem auto;
-}
-
-.leaf-accent {
-  position: absolute;
-  opacity: 0.06;
-  pointer-events: none;
-}
-
-/* ========== SCROLL ANIMATIONS ========== */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-delay-1 { transition-delay: 0.15s; }
-.reveal-delay-2 { transition-delay: 0.3s; }
-.reveal-delay-3 { transition-delay: 0.45s; }
-.reveal-delay-4 { transition-delay: 0.6s; }
-
-/* ========== NAVIGATION ========== */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1.5rem 0;
-  transition: all 0.4s ease;
-}
-
-.nav.scrolled {
-  background: rgba(253, 251, 247, 0.95);
-  backdrop-filter: blur(12px);
-  padding: 1rem 0;
-  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
-}
-
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.nav-logo {
-  font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 300;
-  color: var(--charcoal);
-  letter-spacing: 0.05em;
-}
-
-.nav-logo span {
-  color: var(--rose);
-  font-weight: 400;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2.5rem;
-  align-items: center;
-}
-
+.logo em { font-style: italic; font-weight: 400; color: var(--olive); }
+.nav-links { display: flex; gap: 36px; }
 .nav-links a {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  position: relative;
-  padding-bottom: 2px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: color 0.3s;
 }
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--rose);
-  transition: width 0.3s ease;
+.nav-links a:hover { color: var(--charcoal); }
+.nav-cta a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
 }
-
-.nav-links a:hover { color: var(--rose); }
-.nav-links a:hover::after { width: 100%; }
-
-.nav-cta {
-  font-size: 0.7rem !important;
-  letter-spacing: 0.15em !important;
-  text-transform: uppercase !important;
-  padding: 0.6rem 1.5rem;
-  border: 1px solid var(--rose);
-  color: var(--rose) !important;
-  transition: all 0.3s ease !important;
-}
-
-.nav-cta:hover {
-  background: var(--rose);
-  color: var(--white) !important;
-}
-
-.nav-cta::after { display: none !important; }
-
+.nav-cta a:hover { background: var(--olive); }
 .mobile-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 4px;
+    display: none; flex-direction: column; gap: 6px;
+    background: none; border: none; cursor: pointer; padding: 4px;
 }
+.mobile-toggle span { width: 24px; height: 1.5px; background: var(--charcoal); transition: all 0.3s; }
 
-.mobile-toggle span {
-  width: 24px;
-  height: 1.5px;
-  background: var(--charcoal);
-  transition: all 0.3s ease;
-}
-
-/* ========== HERO ========== */
+/* ===== HERO — FULL BLEED ===== */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(170deg, var(--cream) 0%, #f7f0ed 40%, var(--rose-pale) 100%);
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    background: var(--warm);
+    overflow: hidden;
 }
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(194,114,126,0.08) 0%, transparent 70%);
-  pointer-events: none;
+.hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--olive-pale), var(--warm), #f5ede0);
+    opacity: 1;
 }
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
-  pointer-events: none;
+.hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(42,42,42,0.4) 100%);
+    z-index: 1;
 }
-
-.hero-decoration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.hero-decoration .corner-flourish {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  opacity: 0.1;
-}
-
-.hero-decoration .corner-flourish.top-left {
-  top: 40px;
-  left: 40px;
-}
-
-.hero-decoration .corner-flourish.bottom-right {
-  bottom: 40px;
-  right: 40px;
-  transform: rotate(180deg);
-}
-
 .hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 2rem;
-  max-width: 800px;
+    position: relative; z-index: 2;
+    padding-bottom: 80px;
+    max-width: 700px;
 }
-
-.hero-eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 1s 0.3s forwards;
+.hero-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin-bottom: 24px;
 }
-
 .hero h1 {
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  font-weight: 300;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s 0.5s forwards;
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; }
+.hero p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    max-width: 480px;
+    margin-bottom: 36px;
+    font-weight: 300;
+    line-height: 1.8;
+}
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-cream {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+.btn-cream:hover { background: var(--white); transform: translateY(-2px); }
+.btn-ghost-light {
+    display: inline-block;
+    padding: 16px 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+.btn-ghost-light:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+/* ===== EDITORIAL SECTION STYLE ===== */
+.editorial-section { padding: 120px 0; }
+.editorial-header {
+    max-width: 600px;
+    margin-bottom: 64px;
+}
+.editorial-header.centered { margin-left: auto; margin-right: auto; text-align: center; }
+.section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 16px;
+    display: block;
+}
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--charcoal);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+}
+.section-title em { font-style: italic; }
+.section-subtitle { font-size: 1rem; color: var(--text); font-weight: 300; line-height: 1.8; }
+
+/* ===== VENUE STRIP (Horizontal Scroll) ===== */
+.venue-strip {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+}
+.venue-strip-label {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 32px;
+}
+.venue-track {
+    display: flex; gap: 64px;
+    animation: scrollVenue 25s linear infinite;
+    width: max-content;
+}
+@keyframes scrollVenue { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.venue-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-light);
+    white-space: nowrap;
+    font-style: italic;
 }
 
-.hero h1 em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--rose);
-}
-
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--charcoal-light);
-  margin: 1.5rem 0 2.5rem;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 1s 0.7s forwards;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 1s 0.9s forwards;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 1rem 2.5rem;
-  background: var(--rose);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-primary:hover {
-  background: var(--rose-deep);
-  color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(194,114,126,0.3);
-}
-
-.btn-primary:hover::before { left: 100%; }
-
-.btn-secondary {
-  display: inline-block;
-  padding: 1rem 2.5rem;
-  background: transparent;
-  color: var(--charcoal);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: 1px solid var(--charcoal-light);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-  border-color: var(--rose);
-  color: var(--rose);
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0;
-  animation: fadeUp 1s 1.2s forwards;
-}
-
-.hero-scroll span {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--charcoal-light);
-  font-weight: 500;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: var(--rose-light);
-  position: relative;
-  overflow: hidden;
-}
-
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -100%;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: var(--rose);
-  animation: scrollDown 2s infinite;
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scrollDown {
-  0% { top: -50%; }
-  100% { top: 100%; }
-}
-
-/* ========== EDITORIAL STRIP ========== */
-.editorial-strip {
-  background: var(--charcoal);
-  padding: 1.5rem 0;
-  overflow: hidden;
-}
-
-.editorial-strip-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-
-.editorial-strip span {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--rose-light);
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-}
-
-.editorial-strip .dot {
-  width: 4px;
-  height: 4px;
-  background: var(--rose);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* ========== SERVICES ========== */
-.services {
-  background: var(--cream);
-  position: relative;
-}
-
+/* ===== SERVICES ===== */
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
 }
-
 .service-card {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  position: relative;
-  transition: all 0.4s ease;
-  border: 1px solid transparent;
+    background: var(--cream);
+    padding: 48px 36px;
+    transition: all 0.4s ease;
+    position: relative;
 }
-
-.service-card:hover {
-  border-color: var(--rose-pale);
-  background: var(--white);
+.service-card:hover { background: var(--white); }
+.service-card .num {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--gold-light);
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 20px;
 }
-
-.service-icon {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.service-icon svg {
-  width: 48px;
-  height: 48px;
-  stroke: var(--rose);
-  stroke-width: 1;
-  fill: none;
-}
-
 .service-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  font-weight: 400;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+}
+.service-card p { font-size: 0.9rem; color: var(--text); line-height: 1.8; font-weight: 300; }
+
+/* ===== SPLIT SECTION (Image + Text) ===== */
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+}
+.split-image {
+    background: linear-gradient(135deg, var(--olive-pale), var(--warm));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    position: relative;
+    overflow: hidden;
+}
+.split-content {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 80px 72px;
+}
+.split-content h2 {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+.split-content h2 em { font-style: italic; }
+.split-content p { font-size: 1rem; color: var(--text); line-height: 1.9; font-weight: 300; margin-bottom: 16px; }
+.split-content .signature {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--olive);
+    margin-top: 8px;
 }
 
-.service-card p {
-  font-size: 0.9rem;
-  color: var(--charcoal-light);
-  line-height: 1.8;
-  font-weight: 300;
-}
-
-/* ========== PORTFOLIO / GALLERY ========== */
-.portfolio {
-  background: var(--white);
-  position: relative;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 280px);
-  gap: 1.5rem;
-}
-
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--rose-pale) 0%, #e8d5d0 100%);
-}
-
-.gallery-item:first-child {
-  grid-row: span 2;
-}
-
-.gallery-item-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  transition: all 0.5s ease;
-}
-
-.gallery-item:nth-child(2) .gallery-item-inner { background: linear-gradient(135deg, #f0e6e3 0%, #e5d5cf 100%); }
-.gallery-item:nth-child(3) .gallery-item-inner { background: linear-gradient(135deg, #ede4df 0%, #ddd0c8 100%); }
-.gallery-item:nth-child(4) .gallery-item-inner { background: linear-gradient(135deg, #f2e8e5 0%, #e0d2cc 100%); }
-.gallery-item:nth-child(5) .gallery-item-inner { background: linear-gradient(135deg, #eee3dc 0%, #dccfc6 100%); }
-
-.gallery-placeholder-icon {
-  margin-bottom: 1rem;
-}
-
-.gallery-placeholder-icon svg {
-  width: 40px;
-  height: 40px;
-  stroke: var(--rose);
-  stroke-width: 1;
-  fill: none;
-  opacity: 0.5;
-}
-
-.gallery-item-label {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--rose-deep);
-  opacity: 0.7;
-  text-align: center;
-}
-
-.gallery-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(45, 45, 45, 0.7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  padding: 2rem;
-}
-
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-
-.gallery-overlay h4 {
-  font-size: 1.3rem;
-  color: var(--white);
-  font-weight: 300;
-  margin-bottom: 0.5rem;
-}
-
-.gallery-overlay p {
-  font-size: 0.8rem;
-  color: var(--rose-light);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-/* ========== ABOUT ========== */
-.about {
-  background: var(--cream);
-  position: relative;
-  overflow: hidden;
-}
-
-.about::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
-  border: 1px solid var(--rose-pale);
-  border-radius: 50%;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-}
-
-.about-visual {
-  position: relative;
-}
-
-.about-frame {
-  aspect-ratio: 3 / 4;
-  background: linear-gradient(145deg, var(--rose-pale) 0%, #e8d5d0 50%, #ddd0c8 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.about-frame::before {
-  content: '';
-  position: absolute;
-  inset: 20px;
-  border: 1px solid rgba(255,255,255,0.4);
-}
-
-.about-frame-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-}
-
-.about-frame-content svg {
-  width: 80px;
-  height: 80px;
-  stroke: var(--rose);
-  stroke-width: 0.8;
-  fill: none;
-  opacity: 0.4;
-  margin-bottom: 1.5rem;
-}
-
-.about-frame-content span {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--rose-deep);
-  opacity: 0.5;
-}
-
-.about-accent-box {
-  position: absolute;
-  bottom: -30px;
-  right: -30px;
-  width: 180px;
-  padding: 2rem;
-  background: var(--charcoal);
-  color: var(--white);
-  text-align: center;
-  z-index: 2;
-}
-
-.about-accent-box .number {
-  font-family: var(--font-heading);
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: var(--rose-light);
-  line-height: 1;
-}
-
-.about-accent-box .label {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 0.5rem;
-  color: var(--gold-light);
-}
-
-.about-content h2 {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 300;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-}
-
-.about-content h2 em {
-  font-style: italic;
-  color: var(--rose);
-}
-
-.about-content p {
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: var(--charcoal-light);
-  margin-bottom: 1.5rem;
-  font-weight: 300;
-}
-
-.about-signature {
-  margin-top: 2rem;
-}
-
-.about-signature .name {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--charcoal);
-}
-
-.about-signature .title {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-top: 0.25rem;
-}
-
-/* ========== TESTIMONIALS ========== */
-.testimonials {
-  background: var(--charcoal);
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonials::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at 20% 50%, rgba(194,114,126,0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.testimonials .section-label { color: var(--rose-light); }
-.testimonials .section-title { color: var(--white); }
-.testimonials .section-subtitle { color: rgba(255,255,255,0.5); }
-
+/* ===== TESTIMONIALS ===== */
+.testimonials-section { padding: 120px 0; background: var(--white); }
 .testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
 }
-
-.testimonial-card {
-  padding: 2.5rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  position: relative;
-  transition: all 0.4s ease;
+.testi-card {
+    padding: 40px;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
 }
-
-.testimonial-card:hover {
-  border-color: rgba(194,114,126,0.3);
-  background: rgba(255,255,255,0.03);
+.testi-card:hover { border-color: var(--gold); }
+.testi-card .quote-mark {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 16px;
 }
-
-.testimonial-quote-mark {
-  font-family: var(--font-heading);
-  font-size: 4rem;
-  color: var(--rose);
-  line-height: 1;
-  margin-bottom: 1rem;
-  opacity: 0.5;
+.testi-card blockquote {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 24px;
 }
+.testi-divider { width: 40px; height: 1px; background: var(--gold); margin-bottom: 16px; }
+.testi-card .author { font-size: 0.82rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal); }
+.testi-card .venue { font-size: 0.82rem; color: var(--text-light); margin-top: 4px; }
 
-.testimonial-card blockquote {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 2rem;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.testimonial-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--white);
-  flex-shrink: 0;
-}
-
-.testimonial-author .name {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  color: var(--white);
-}
-
-.testimonial-author .detail {
-  font-size: 0.75rem;
-  color: var(--rose-light);
-  letter-spacing: 0.1em;
-  margin-top: 0.2rem;
-}
-
-/* ========== PACKAGES ========== */
-.packages {
-  background: var(--white);
-  position: relative;
-}
-
+/* ===== PACKAGES ===== */
 .packages-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
 }
-
 .package-card {
-  padding: 3rem 2.5rem;
-  border: 1px solid #e8e3de;
-  text-align: center;
-  position: relative;
-  transition: all 0.4s ease;
-  background: var(--cream);
+    background: var(--cream);
+    padding: 48px 36px;
+    text-align: center;
+    transition: all 0.4s;
+    position: relative;
 }
-
-.package-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+.package-card:hover { background: var(--white); }
+.package-card.featured { background: var(--charcoal); color: var(--cream); }
+.package-card.featured h3 { color: var(--cream); }
+.package-card.featured .package-price { color: var(--gold); }
+.package-card.featured p { color: rgba(255,255,255,0.6); }
+.package-card.featured ul li { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.1); }
+.package-card.featured::before {
+    content: 'Most Requested';
+    position: absolute; top: 20px; right: 20px;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
 }
-
-.package-card.featured {
-  border-color: var(--rose);
-  background: var(--white);
-}
-
-.package-badge {
-  position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--rose);
-  color: var(--white);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.4rem 1.5rem;
-}
-
 .package-card h3 {
-  font-size: 1.6rem;
-  font-weight: 300;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 8px;
 }
-
 .package-price {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: var(--rose);
-  margin: 1.5rem 0;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--charcoal);
+    margin-bottom: 4px;
 }
-
-.package-price .from {
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: var(--charcoal-light);
-  display: block;
-  margin-bottom: 0.25rem;
-  font-family: var(--font-body);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+.package-card .note { font-size: 0.82rem; color: var(--text-light); margin-bottom: 28px; }
+.package-card ul { margin-bottom: 32px; }
+.package-card ul li {
+    font-size: 0.88rem;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 300;
 }
-
-.package-features {
-  list-style: none;
-  margin: 2rem 0;
-  text-align: left;
+.btn-charcoal {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
 }
-
-.package-features li {
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #f0ebe6;
-  font-size: 0.88rem;
-  color: var(--charcoal-light);
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  font-weight: 300;
+.btn-charcoal:hover { background: var(--olive); }
+.btn-outline-dark {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
 }
+.btn-outline-dark:hover { background: var(--charcoal); color: var(--cream); }
+.package-card.featured .btn-charcoal { background: var(--cream); color: var(--charcoal); }
+.package-card.featured .btn-charcoal:hover { background: var(--gold); color: var(--white); }
 
-.package-features li::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--rose);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 0.55rem;
+/* ===== CONTACT FORM ===== */
+.contact-section {
+    padding: 120px 0;
+    background: var(--white);
 }
-
-.package-card .btn-primary {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.package-card .btn-secondary {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.packages-note {
-  text-align: center;
-  margin-top: 3rem;
-  font-size: 0.85rem;
-  color: var(--charcoal-light);
-  font-style: italic;
-  font-family: var(--font-heading);
-  font-weight: 300;
-}
-
-/* ========== CONTACT ========== */
-.contact {
-  background: var(--cream);
-  position: relative;
-}
-
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
 }
-
-.contact-info h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-}
-
-.contact-info h2 em {
-  font-style: italic;
-  color: var(--rose);
-}
-
-.contact-info > p {
-  font-size: 0.95rem;
-  color: var(--charcoal-light);
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  font-weight: 300;
-}
-
-.contact-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.contact-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.contact-detail-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.contact-detail-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--rose);
-  stroke-width: 1.5;
-  fill: none;
-}
-
-.contact-detail .label {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--rose);
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.contact-detail .value {
-  font-size: 0.92rem;
-  color: var(--charcoal);
-  font-weight: 300;
-}
-
-.contact-social {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.contact-social a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--charcoal-light);
-  transition: color 0.3s ease;
-}
-
-.contact-social a:hover { color: var(--rose); }
-
-.contact-social svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-.contact-form {
-  background: var(--white);
-  padding: 3rem;
-  border: 1px solid #e8e3de;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
 .form-group label {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  margin-bottom: 0.5rem;
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 8px;
 }
-
 .form-group input,
 .form-group select,
 .form-group textarea {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  border: 1px solid #e0dbd5;
-  background: var(--cream);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--charcoal);
-  transition: border-color 0.3s ease;
-  outline: none;
-  font-weight: 300;
-  -webkit-appearance: none;
-  appearance: none;
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    transition: border 0.3s;
+    outline: none;
 }
-
-.form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c2727e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.5rem;
-}
-
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--rose);
-}
+.form-group textarea:focus { border-color: var(--olive); }
+.form-group textarea { height: 120px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-.form-group textarea {
-  height: 120px;
-  resize: vertical;
+/* ===== CTA ===== */
+.final-cta {
+    padding: 120px 0;
+    text-align: center;
+    background: var(--charcoal);
+    color: var(--cream);
 }
-
-.contact-form .btn-primary {
-  width: 100%;
+.final-cta h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 16px;
+    line-height: 1.2;
 }
+.final-cta h2 em { font-style: italic; }
+.final-cta p { font-size: 1rem; color: rgba(255,255,255,0.6); max-width: 460px; margin: 0 auto 40px; font-weight: 300; }
+.final-cta .cta-divider { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 40px; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-/* ========== FOOTER ========== */
+/* ===== FOOTER ===== */
 .footer {
-  background: var(--charcoal);
-  color: var(--white);
-  padding: 5rem 0 0;
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
 }
+.footer p { font-size: 0.82rem; color: var(--text-light); }
+.footer a { color: var(--olive); }
 
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3rem;
-  padding-bottom: 4rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.footer-brand .logo {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--white);
-  margin-bottom: 1rem;
-}
-
-.footer-brand .logo span { color: var(--rose-light); }
-
-.footer-brand p {
-  font-size: 0.88rem;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.8;
-  font-weight: 300;
-  max-width: 300px;
-}
-
-.footer-col h4 {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rose-light);
-  margin-bottom: 1.5rem;
-}
-
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-col a {
-  font-size: 0.88rem;
-  color: rgba(255,255,255,0.5);
-  transition: color 0.3s ease;
-  font-weight: 300;
-}
-
-.footer-col a:hover { color: var(--rose-light); }
-
-.footer-bottom {
-  padding: 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.footer-bottom p {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.3);
-  font-weight: 300;
-}
-
-.footer-social {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.footer-social a {
-  color: rgba(255,255,255,0.4);
-  transition: color 0.3s ease;
-}
-
-.footer-social a:hover { color: var(--rose-light); }
-
-.footer-social svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
-  .gallery-item:first-child { grid-row: span 1; }
-  .gallery-item { min-height: 220px; }
-  .testimonials-grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
-  .packages-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 768px) {
-  .section-padding { padding: 5rem 0; }
-
-  .nav-links {
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(253, 251, 247, 0.98);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    position: fixed; inset: 0;
+    background: rgba(250,248,243,0.98);
     z-index: 999;
-  }
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 28px;
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu a {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--charcoal);
+    transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--olive); }
 
-  .nav-links.open { display: flex; }
-
-  .nav-links a { font-size: 0.85rem; color: var(--charcoal); }
-
-  .mobile-toggle { display: flex; z-index: 1001; }
-  .mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-  .mobile-toggle.open span:nth-child(2) { opacity: 0; }
-  .mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
-
-  .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
-
-  .services-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .about-visual { max-width: 400px; margin: 0 auto; }
-
-  .gallery-grid { grid-template-columns: 1fr; }
-
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .contact-form { padding: 2rem; }
-  .form-row { grid-template-columns: 1fr; }
-
-  .footer-top { grid-template-columns: 1fr; text-align: center; }
-  .footer-brand p { max-width: 100%; }
-  .footer-bottom { justify-content: center; text-align: center; }
-
-  .editorial-strip-inner { gap: 1.5rem; }
-  .editorial-strip span { font-size: 0.75rem; }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .packages-grid { grid-template-columns: 1fr; gap: 0; }
+    .split { grid-template-columns: 1fr; }
+    .split-content { padding: 60px 32px; }
+    .split-image { min-height: 350px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .mobile-toggle { display: flex; }
+    .services-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero-content { padding-bottom: 60px; }
+    .form-row { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 480px) {
-  .container { padding: 0 1.25rem; }
-  .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-buttons .btn-primary,
-  .hero-buttons .btn-secondary { width: 100%; max-width: 280px; text-align: center; }
-}
+/* ===== ANIMATIONS ===== */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.15s; }
+.reveal.d2 { transition-delay: 0.3s; }
 </style>
 </head>
 <body>
 
-<!-- ========== NAVIGATION ========== -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">Bloom <span>&</span> Co.</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#testimonials">Kind Words</a></li>
-      <li><a href="#packages">Packages</a></li>
-      <li><a href="#contact" class="nav-cta">Book a Consultation</a></li>
-    </ul>
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#" class="logo">Bloom <em>& Co.</em></a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#packages">Packages</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-cta"><a href="#contact">Enquire</a></div>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
-<!-- ========== HERO ========== -->
-<section class="hero" id="hero">
-  <div class="hero-decoration">
-    <svg class="corner-flourish top-left" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.5" color="#c2727e">
-      <path d="M0,100 Q50,50 100,0"/>
-      <path d="M0,80 Q40,40 80,0"/>
-      <circle cx="50" cy="50" r="3"/>
-      <path d="M10,60 Q30,30 60,10"/>
-      <ellipse cx="30" cy="30" rx="10" ry="15" transform="rotate(-45,30,30)"/>
-    </svg>
-    <svg class="corner-flourish bottom-right" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.5" color="#c2727e">
-      <path d="M0,100 Q50,50 100,0"/>
-      <path d="M0,80 Q40,40 80,0"/>
-      <circle cx="50" cy="50" r="3"/>
-      <path d="M10,60 Q30,30 60,10"/>
-      <ellipse cx="30" cy="30" rx="10" ry="15" transform="rotate(-45,30,30)"/>
-    </svg>
-  </div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Wedding Planning &amp; Floral Design Studio</p>
-    <h1>Where Love<br><em>Blooms</em></h1>
-    <p class="hero-tagline">Crafting bespoke celebrations that are as timeless as your love story — from intimate garden soirées to grand ballroom affairs across Singapore's most iconic venues.</p>
-    <div class="hero-buttons">
-      <a href="#contact" class="btn-primary">Request a Consultation</a>
-      <a href="#portfolio" class="btn-secondary">View Our Work</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- ========== EDITORIAL STRIP ========== -->
-<div class="editorial-strip">
-  <div class="editorial-strip-inner container">
-    <span>Capella Sentosa</span>
-    <div class="dot"></div>
-    <span>Raffles Hotel</span>
-    <div class="dot"></div>
-    <span>CHIJMES</span>
-    <div class="dot"></div>
-    <span>The Fullerton</span>
-    <div class="dot"></div>
-    <span>Ritz-Carlton</span>
-    <div class="dot"></div>
-    <span>One&amp;Only Desaru</span>
-  </div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#packages">Packages</a>
+    <a href="#contact">Contact</a>
 </div>
 
-<!-- ========== SERVICES ========== -->
-<section class="services section-padding" id="services">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">What We Do</span>
-      <h2 class="section-title">Curated Services</h2>
-      <div class="floral-divider">
-        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"/><path d="M12 14V22"/><path d="M8 18C8 18 10 16 12 16C14 16 16 18 16 18"/></svg>
-      </div>
-      <p class="section-subtitle">Every detail, thoughtfully designed. Every moment, beautifully orchestrated. We bring your vision to life with grace and intention.</p>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-divider"></div>
+            <h1>Where love meets <em>timeless design</em></h1>
+            <p>Bespoke wedding planning and floral design for the most discerning couples in Singapore. Every detail, thoughtfully curated.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn-cream">Begin Your Journey</a>
+                <a href="#services" class="btn-ghost-light">Our Services</a>
+            </div>
+        </div>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-icon">
-          <svg viewBox="0 0 48 48">
-            <rect x="8" y="6" width="32" height="36" rx="2"/>
-            <line x1="14" y1="14" x2="34" y2="14"/>
-            <line x1="14" y1="20" x2="34" y2="20"/>
-            <line x1="14" y1="26" x2="28" y2="26"/>
-            <path d="M14 32 L18 36 L26 28"/>
-          </svg>
-        </div>
-        <h3>Wedding Planning</h3>
-        <p>From concept to celebration, we manage every aspect of your wedding with meticulous care — venue sourcing, vendor coordination, timeline creation, and budget management, so you can savour every moment.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-icon">
-          <svg viewBox="0 0 48 48">
-            <path d="M24 4C24 4 16 10 16 18C16 22.4 19.6 26 24 26C28.4 26 32 22.4 32 18C32 10 24 4 24 4Z"/>
-            <path d="M24 26V44"/>
-            <path d="M18 36C18 36 21 32 24 32C27 32 30 36 30 36"/>
-            <path d="M16 40C16 40 20 37 24 37C28 37 32 40 32 40"/>
-          </svg>
-        </div>
-        <h3>Floral Design</h3>
-        <p>Our signature floral installations transform spaces into living works of art. From romantic bridal bouquets to breathtaking ceremony arches and cascading table centrepieces, each bloom is chosen with intention.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-icon">
-          <svg viewBox="0 0 48 48">
-            <circle cx="24" cy="20" r="14"/>
-            <path d="M24 6L26 12H32L27 16L29 22L24 18L19 22L21 16L16 12H22Z"/>
-            <line x1="24" y1="34" x2="24" y2="44"/>
-            <line x1="18" y1="44" x2="30" y2="44"/>
-          </svg>
-        </div>
-        <h3>Styling &amp; Decor</h3>
-        <p>We curate every visual element of your celebration — from colour palettes and linen selections to stationery, tableware, and lighting design — creating a cohesive aesthetic that tells your unique story.</p>
-      </div>
-      <div class="service-card reveal reveal-delay-4">
-        <div class="service-icon">
-          <svg viewBox="0 0 48 48">
-            <circle cx="24" cy="24" r="18"/>
-            <line x1="24" y1="12" x2="24" y2="24"/>
-            <line x1="24" y1="24" x2="32" y2="28"/>
-            <circle cx="24" cy="24" r="2"/>
-          </svg>
-        </div>
-        <h3>Day-of Coordination</h3>
-        <p>Already have your plans in place? Our seasoned coordinators step in to manage the day seamlessly — vendor arrivals, timeline execution, and every behind-the-scenes detail — so you and your loved ones can be fully present.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- ========== PORTFOLIO ========== -->
-<section class="portfolio section-padding" id="portfolio">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">Our Portfolio</span>
-      <h2 class="section-title">Love Stories We've Told</h2>
-      <div class="floral-divider">
-        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"/><path d="M12 14V22"/><path d="M8 18C8 18 10 16 12 16C14 16 16 18 16 18"/></svg>
-      </div>
-      <p class="section-subtitle">A glimpse into the celebrations we've had the privilege of bringing to life — each one as unique as the couple at its heart.</p>
+<!-- VENUE STRIP -->
+<div class="venue-strip">
+    <div class="venue-strip-label">Trusted by Singapore's finest venues</div>
+    <div class="venue-track">
+        <span class="venue-name">Capella Singapore</span>
+        <span class="venue-name">Raffles Hotel</span>
+        <span class="venue-name">CHIJMES</span>
+        <span class="venue-name">The Clifford Pier</span>
+        <span class="venue-name">Fullerton Hotel</span>
+        <span class="venue-name">Ritz-Carlton</span>
+        <span class="venue-name">One Farrer Hotel</span>
+        <span class="venue-name">Capella Singapore</span>
+        <span class="venue-name">Raffles Hotel</span>
+        <span class="venue-name">CHIJMES</span>
+        <span class="venue-name">The Clifford Pier</span>
+        <span class="venue-name">Fullerton Hotel</span>
+        <span class="venue-name">Ritz-Carlton</span>
+        <span class="venue-name">One Farrer Hotel</span>
     </div>
-    <div class="gallery-grid">
-      <div class="gallery-item reveal reveal-delay-1">
-        <div class="gallery-item-inner">
-          <div class="gallery-placeholder-icon">
-            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="2"/><circle cx="18" cy="22" r="4"/><path d="M6 34L16 26L22 32L32 22L42 30"/></svg>
-          </div>
-          <span class="gallery-item-label">Garden Romance at Capella</span>
+</div>
+
+<!-- SERVICES -->
+<section class="editorial-section" id="services">
+    <div class="container">
+        <div class="editorial-header centered reveal">
+            <span class="section-label">What We Do</span>
+            <h2 class="section-title">Crafting celebrations that <em>last forever</em></h2>
+            <p class="section-subtitle">From intimate garden ceremonies to grand ballroom receptions, we bring your vision to life with meticulous attention to every detail.</p>
         </div>
-        <div class="gallery-overlay">
-          <h4>Sarah &amp; James</h4>
-          <p>Capella Sentosa</p>
+        <div class="services-grid reveal">
+            <div class="service-card">
+                <div class="num">01</div>
+                <h3>Full Wedding Planning</h3>
+                <p>End-to-end coordination from concept to execution. Venue sourcing, vendor management, timeline planning, and day-of coordination.</p>
+            </div>
+            <div class="service-card">
+                <div class="num">02</div>
+                <h3>Floral Design</h3>
+                <p>Bespoke floral installations, bridal bouquets, table arrangements, and ceremony arches. Fresh, seasonal blooms sourced from the finest growers.</p>
+            </div>
+            <div class="service-card">
+                <div class="num">03</div>
+                <h3>Event Styling</h3>
+                <p>Complete aesthetic direction — tablescapes, lighting design, stationery, and decor — creating a cohesive visual narrative for your day.</p>
+            </div>
+            <div class="service-card">
+                <div class="num">04</div>
+                <h3>Day-of Coordination</h3>
+                <p>For couples who've planned their own wedding but need a seasoned professional to execute everything flawlessly on the day.</p>
+            </div>
+            <div class="service-card">
+                <div class="num">05</div>
+                <h3>Destination Weddings</h3>
+                <p>Taking your celebration beyond Singapore — Bali, Phuket, Maldives, and beyond. We handle every logistic so you simply enjoy.</p>
+            </div>
+            <div class="service-card">
+                <div class="num">06</div>
+                <h3>Pre-Wedding Events</h3>
+                <p>Engagement parties, bridal showers, rehearsal dinners, and tea ceremonies — each one as thoughtfully designed as the main event.</p>
+            </div>
         </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <div class="gallery-item-inner">
-          <div class="gallery-placeholder-icon">
-            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="2"/><circle cx="18" cy="22" r="4"/><path d="M6 34L16 26L22 32L32 22L42 30"/></svg>
-          </div>
-          <span class="gallery-item-label">Classic Elegance at Raffles</span>
-        </div>
-        <div class="gallery-overlay">
-          <h4>Wei Ling &amp; Marcus</h4>
-          <p>Raffles Hotel</p>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-3">
-        <div class="gallery-item-inner">
-          <div class="gallery-placeholder-icon">
-            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="2"/><circle cx="18" cy="22" r="4"/><path d="M6 34L16 26L22 32L32 22L42 30"/></svg>
-          </div>
-          <span class="gallery-item-label">Heritage Charm at CHIJMES</span>
-        </div>
-        <div class="gallery-overlay">
-          <h4>Rachel &amp; Daniel</h4>
-          <p>CHIJMES Hall</p>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <div class="gallery-item-inner">
-          <div class="gallery-placeholder-icon">
-            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="2"/><circle cx="18" cy="22" r="4"/><path d="M6 34L16 26L22 32L32 22L42 30"/></svg>
-          </div>
-          <span class="gallery-item-label">Modern Luxe at The Fullerton</span>
-        </div>
-        <div class="gallery-overlay">
-          <h4>Priya &amp; Kenneth</h4>
-          <p>The Fullerton Hotel</p>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-3">
-        <div class="gallery-item-inner">
-          <div class="gallery-placeholder-icon">
-            <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="2"/><circle cx="18" cy="22" r="4"/><path d="M6 34L16 26L22 32L32 22L42 30"/></svg>
-          </div>
-          <span class="gallery-item-label">Tropical Bliss at One&amp;Only</span>
-        </div>
-        <div class="gallery-overlay">
-          <h4>Amanda &amp; Chris</h4>
-          <p>One&amp;Only Desaru Coast</p>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- ========== ABOUT ========== -->
-<section class="about section-padding" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-visual reveal">
-        <div class="about-frame">
-          <div class="about-frame-content">
-            <svg viewBox="0 0 80 80">
-              <path d="M40 8C40 8 28 18 28 30C28 36.6 33.4 42 40 42C46.6 42 52 36.6 52 30C52 18 40 8 40 8Z"/>
-              <path d="M40 42V72"/>
-              <path d="M30 56C30 56 35 50 40 50C45 50 50 56 50 56"/>
-              <path d="M26 64C26 64 33 58 40 58C47 58 54 64 54 64"/>
-              <path d="M20 30C20 30 14 24 14 18" />
-              <path d="M60 30C60 30 66 24 66 18"/>
-            </svg>
-            <span>Photo Placeholder</span>
-          </div>
-        </div>
-        <div class="about-accent-box">
-          <div class="number">200+</div>
-          <div class="label">Weddings Styled</div>
-        </div>
-      </div>
-      <div class="about-content reveal reveal-delay-1">
+<!-- ABOUT — SPLIT -->
+<section class="split" id="about">
+    <div class="split-image">💐</div>
+    <div class="split-content reveal">
         <span class="section-label">Our Story</span>
-        <h2>Crafting <em>timeless</em><br>celebrations since 2016</h2>
-        <p>Bloom & Co. was born from a simple belief: that your wedding day should feel as natural and effortless as falling in love. Founded by creative director Isabelle Tan, our boutique studio brings together a curated team of planners, florists, and stylists who share a passion for understated elegance.</p>
-        <p>Based in the heart of Singapore, we've had the privilege of designing celebrations at the city's most prestigious venues — from the colonial grandeur of Raffles Hotel to the tropical intimacy of Capella Sentosa. Every wedding we touch is a reflection of the couple's unique journey, told through thoughtful details, exquisite florals, and seamless orchestration.</p>
-        <p>We don't believe in cookie-cutter weddings. We believe in yours.</p>
-        <div class="about-signature">
-          <div class="name">Isabelle Tan</div>
-          <div class="title">Founder &amp; Creative Director</div>
-        </div>
-      </div>
+        <h2>A studio born from a love of <em>beautiful details</em></h2>
+        <p>Founded in 2018, Bloom & Co. has designed over 200 weddings across Singapore's most iconic venues. We believe every couple deserves a celebration that reflects their unique love story.</p>
+        <p>Our team of six planners and florists brings together decades of experience in luxury events, fine dining, and floral artistry. We're perfectionists, romantics, and — above all — listeners.</p>
+        <div class="signature">— Grace Tan, Founder</div>
     </div>
-  </div>
 </section>
 
-<!-- ========== TESTIMONIALS ========== -->
-<section class="testimonials section-padding" id="testimonials">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">Kind Words</span>
-      <h2 class="section-title">From Our Beloved Couples</h2>
-      <div class="floral-divider">
-        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="#c2727e"/><path d="M12 14V22" stroke="#c2727e" stroke-width="1"/><path d="M8 18C8 18 10 16 12 16C14 16 16 18 16 18" stroke="#c2727e" stroke-width="1" fill="none"/></svg>
-      </div>
-      <p class="section-subtitle">The greatest compliment we can receive is the trust of our couples — and their kind words after the celebration.</p>
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="editorial-header centered reveal">
+            <span class="section-label">Kind Words</span>
+            <h2 class="section-title">From our couples</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testi-card reveal">
+                <div class="quote-mark">"</div>
+                <blockquote>Grace and her team turned our vision into something far more beautiful than we could have imagined. Every single detail was perfect — from the floral arch to the napkin folds.</blockquote>
+                <div class="testi-divider"></div>
+                <div class="author">Amanda & James</div>
+                <div class="venue">Capella Singapore, Dec 2025</div>
+            </div>
+            <div class="testi-card reveal d1">
+                <div class="quote-mark">"</div>
+                <blockquote>We were overwhelmed with planning until we found Bloom & Co. They took all the stress away and delivered a day that was truly us. Our guests are still talking about the flowers.</blockquote>
+                <div class="testi-divider"></div>
+                <div class="author">Rachel & David</div>
+                <div class="venue">Raffles Hotel, Oct 2025</div>
+            </div>
+            <div class="testi-card reveal">
+                <div class="quote-mark">"</div>
+                <blockquote>The day-of coordination was seamless. We didn't have to worry about a single thing. Bloom & Co. handled every vendor, every timeline change, every unexpected moment with grace.</blockquote>
+                <div class="testi-divider"></div>
+                <div class="author">Mei Ling & Wei</div>
+                <div class="venue">CHIJMES, Sep 2025</div>
+            </div>
+            <div class="testi-card reveal d1">
+                <div class="quote-mark">"</div>
+                <blockquote>Our Bali destination wedding was a dream. The logistics of flying everything in could have been a nightmare, but Grace made it look effortless. Truly world-class service.</blockquote>
+                <div class="testi-divider"></div>
+                <div class="author">Sarah & Marcus</div>
+                <div class="venue">Uluwatu, Bali, Aug 2025</div>
+            </div>
+        </div>
     </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal reveal-delay-1">
-        <div class="testimonial-quote-mark">&ldquo;</div>
-        <blockquote>Isabelle and her team turned our vision into something far more beautiful than we ever imagined. Every single detail at our Capella wedding was perfection — from the cascading orchid installations to the candlelit dinner under the stars. We are forever grateful.</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">S&J</div>
-          <div>
-            <div class="name">Sarah &amp; James</div>
-            <div class="detail">Capella Sentosa, 2024</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal reveal-delay-2">
-        <div class="testimonial-quote-mark">&ldquo;</div>
-        <blockquote>Working with Bloom & Co. was the best decision we made for our wedding. They understood our aesthetic instantly — modern yet warm, elegant yet personal. On the day itself, everything flowed so seamlessly that we could simply enjoy every moment with our guests.</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">W&M</div>
-          <div>
-            <div class="name">Wei Ling &amp; Marcus</div>
-            <div class="detail">Raffles Hotel, 2024</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal reveal-delay-3">
-        <div class="testimonial-quote-mark">&ldquo;</div>
-        <blockquote>From our very first meeting, we knew Bloom & Co. was special. They didn't just plan our wedding — they poured their hearts into it. The floral arrangements at CHIJMES took our breath away, and our guests are still raving about the styling months later.</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">R&D</div>
-          <div>
-            <div class="name">Rachel &amp; Daniel</div>
-            <div class="detail">CHIJMES Hall, 2023</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- ========== PACKAGES ========== -->
-<section class="packages section-padding" id="packages">
-  <div class="container">
-    <div class="text-center reveal">
-      <span class="section-label">Investment</span>
-      <h2 class="section-title">Our Packages</h2>
-      <div class="floral-divider">
-        <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"/><path d="M12 14V22"/><path d="M8 18C8 18 10 16 12 16C14 16 16 18 16 18"/></svg>
-      </div>
-      <p class="section-subtitle">Every couple's journey is unique, and so is every package. These serve as a starting point — we tailor every proposal to your vision and needs.</p>
+<!-- PACKAGES -->
+<section class="editorial-section" id="packages">
+    <div class="container">
+        <div class="editorial-header centered reveal">
+            <span class="section-label">Investment</span>
+            <h2 class="section-title">Our packages</h2>
+            <p class="section-subtitle">Every wedding is unique. These packages are starting points — we customise everything to your needs.</p>
+        </div>
+        <div class="packages-grid reveal">
+            <div class="package-card">
+                <h3>Day-of Coordination</h3>
+                <div class="package-price">SGD$1,500</div>
+                <div class="note">Starting from</div>
+                <ul>
+                    <li>Timeline management</li>
+                    <li>Vendor coordination</li>
+                    <li>Rehearsal attendance</li>
+                    <li>8 hours day-of coverage</li>
+                    <li>Emergency kit</li>
+                </ul>
+                <a href="#contact" class="btn-outline-dark">Enquire</a>
+            </div>
+            <div class="package-card featured">
+                <h3>Full Planning</h3>
+                <div class="package-price">SGD$4,000</div>
+                <div class="note">Starting from</div>
+                <ul>
+                    <li>Everything in Day-of</li>
+                    <li>Venue sourcing & visits</li>
+                    <li>Vendor recommendations</li>
+                    <li>Budget management</li>
+                    <li>Design concept & mood board</li>
+                    <li>Unlimited consultations</li>
+                </ul>
+                <a href="#contact" class="btn-charcoal">Enquire</a>
+            </div>
+            <div class="package-card">
+                <h3>Luxury Bespoke</h3>
+                <div class="package-price">SGD$6,000</div>
+                <div class="note">Starting from</div>
+                <ul>
+                    <li>Everything in Full Planning</li>
+                    <li>Bespoke floral design</li>
+                    <li>Complete event styling</li>
+                    <li>Stationery design</li>
+                    <li>Pre-wedding events</li>
+                    <li>Post-wedding brunch</li>
+                </ul>
+                <a href="#contact" class="btn-outline-dark">Enquire</a>
+            </div>
+        </div>
     </div>
-    <div class="packages-grid">
-      <div class="package-card reveal reveal-delay-1">
-        <h3>Day-of Coordination</h3>
-        <div class="package-price">
-          <span class="from">Starting from</span>
-          SGD$1,500
-        </div>
-        <ul class="package-features">
-          <li>Detailed timeline creation &amp; management</li>
-          <li>Vendor liaison &amp; confirmations (final 4 weeks)</li>
-          <li>Full rehearsal coordination</li>
-          <li>Up to 10 hours of on-site management</li>
-          <li>Dedicated coordinator &amp; assistant</li>
-          <li>Emergency kit &amp; contingency planning</li>
-        </ul>
-        <a href="#contact" class="btn-secondary">Enquire Now</a>
-      </div>
-      <div class="package-card featured reveal reveal-delay-2">
-        <div class="package-badge">Most Popular</div>
-        <h3>Full Planning</h3>
-        <div class="package-price">
-          <span class="from">Starting from</span>
-          SGD$6,000
-        </div>
-        <ul class="package-features">
-          <li>Complete wedding concept &amp; design</li>
-          <li>Venue sourcing &amp; site visits</li>
-          <li>Full vendor curation &amp; management</li>
-          <li>Budget tracking &amp; negotiation</li>
-          <li>Custom floral design &amp; styling</li>
-          <li>Stationery &amp; collateral design direction</li>
-          <li>Guest management &amp; RSVP tracking</li>
-          <li>Full day-of coordination (up to 14 hours)</li>
-          <li>Dedicated lead planner &amp; team</li>
-        </ul>
-        <a href="#contact" class="btn-primary">Request a Consultation</a>
-      </div>
-      <div class="package-card reveal reveal-delay-3">
-        <h3>Partial Planning</h3>
-        <div class="package-price">
-          <span class="from">Starting from</span>
-          SGD$3,000
-        </div>
-        <ul class="package-features">
-          <li>Design consultation &amp; mood board</li>
-          <li>Vendor recommendations &amp; introductions</li>
-          <li>Budget review &amp; planning guidance</li>
-          <li>Monthly check-in meetings</li>
-          <li>Decor &amp; styling direction</li>
-          <li>Full day-of coordination (up to 12 hours)</li>
-          <li>Dedicated planner &amp; assistant</li>
-        </ul>
-        <a href="#contact" class="btn-secondary">Enquire Now</a>
-      </div>
-    </div>
-    <p class="packages-note reveal">All packages are customisable. Floral design and bespoke styling can be added to any package as an enhancement.</p>
-  </div>
 </section>
 
-<!-- ========== CONTACT ========== -->
-<section class="contact section-padding" id="contact">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <span class="section-label">Get in Touch</span>
-        <h2>Let's create something <em>beautiful</em> together</h2>
-        <p>We'd love to hear about your wedding vision. Whether you're in the early stages of dreaming or have a date and venue booked, we're here to help bring it all to life. Reach out for a complimentary consultation — we can't wait to meet you.</p>
-        <div class="contact-details">
-          <div class="contact-detail">
-            <div class="contact-detail-icon">
-              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="reveal">
+                <span class="section-label">Get in Touch</span>
+                <h2 class="section-title">Let's plan something <em>beautiful</em></h2>
+                <p class="section-subtitle" style="max-width: none; margin: 0;">Tell us about your wedding and we'll be in touch within 24 hours. We'd love to hear your story.</p>
+                <div style="margin-top: 40px;">
+                    <div class="location-item" style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <span>📍</span>
+                        <div><strong style="color: var(--charcoal);">Studio</strong><br>28 Ann Siang Road, #03-01, Singapore 069708</div>
+                    </div>
+                    <div class="location-item" style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <span>📞</span>
+                        <div><strong style="color: var(--charcoal);">Phone</strong><br>9123 4567</div>
+                    </div>
+                    <div class="location-item" style="display: flex; gap: 12px; padding: 12px 0;">
+                        <span>✉️</span>
+                        <div><strong style="color: var(--charcoal);">Email</strong><br>hello@bloomandco.sg</div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <div class="label">Studio</div>
-              <div class="value">68 Circular Road, #03-01<br>Singapore 049422</div>
-            </div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">
-              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13L2 4"/></svg>
-            </div>
-            <div>
-              <div class="label">Email</div>
-              <div class="value">hello@bloomandco.sg</div>
-            </div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-detail-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div>
-              <div class="label">Phone</div>
-              <div class="value">+65 8123 4567</div>
-            </div>
-          </div>
+            <form class="contact-form reveal d1">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Partner's Name</label>
+                        <input type="text" placeholder="Full name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Wedding Date</label>
+                        <input type="text" placeholder="DD/MM/YYYY or TBD">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Package Interest</label>
+                    <select>
+                        <option>Day-of Coordination — from SGD$1,500</option>
+                        <option>Full Planning — from SGD$4,000</option>
+                        <option>Luxury Bespoke — from SGD$6,000</option>
+                        <option>Not sure yet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tell Us About Your Dream Day</label>
+                    <textarea placeholder="Venue ideas, guest count, style preferences, anything you'd like to share..."></textarea>
+                </div>
+                <button type="submit" class="btn-charcoal" style="border: none; cursor: pointer; width: 100%; text-align: center; padding: 18px;">Send Enquiry</button>
+            </form>
         </div>
-        <div class="contact-social">
-          <a href="https://instagram.com/bloomandco.sg" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            @bloomandco.sg
-          </a>
-        </div>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Full name" required>
-            </div>
-            <div class="form-group">
-              <label for="partner">Partner's Name</label>
-              <input type="text" id="partner" name="partner" placeholder="Partner's full name">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required>
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+65">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="date">Wedding Date</label>
-              <input type="text" id="date" name="date" placeholder="DD / MM / YYYY or TBD">
-            </div>
-            <div class="form-group">
-              <label for="guests">Estimated Guest Count</label>
-              <input type="text" id="guests" name="guests" placeholder="e.g. 80-120">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="venue">Preferred Venue(s)</label>
-            <input type="text" id="venue" name="venue" placeholder="e.g. Capella Sentosa, or 'Open to suggestions'">
-          </div>
-          <div class="form-group">
-            <label for="service">Service of Interest</label>
-            <select id="service" name="service">
-              <option value="" disabled selected>Select a package</option>
-              <option value="full">Full Planning — from SGD$6,000</option>
-              <option value="partial">Partial Planning — from SGD$3,000</option>
-              <option value="dayof">Day-of Coordination — from SGD$1,500</option>
-              <option value="floral">Floral Design Only</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Tell Us About Your Vision</label>
-            <textarea id="message" name="message" placeholder="Share your wedding dreams — style, colours, must-haves, or anything that inspires you..."></textarea>
-          </div>
-          <button type="submit" class="btn-primary">Request a Consultation</button>
-        </form>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- ========== FOOTER ========== -->
+<!-- FINAL CTA -->
+<section class="final-cta">
+    <div class="container reveal">
+        <div class="cta-divider"></div>
+        <h2>Your love story deserves to be <em>beautifully told</em></h2>
+        <p>Let's create something extraordinary together. Book a complimentary consultation at our Ann Siang studio.</p>
+        <div class="cta-btns">
+            <a href="https://wa.me/6591234567?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20wedding%20planning" class="btn-cream" target="_blank">WhatsApp Us</a>
+            <a href="tel:+6591234567" class="btn-ghost-light">Call 9123 4567</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo">Bloom <span>&</span> Co.</div>
-        <p>A boutique wedding planning and floral design studio in Singapore, dedicated to crafting celebrations that are as timeless and unique as the love they honour.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#services">Wedding Planning</a></li>
-          <li><a href="#services">Floral Design</a></li>
-          <li><a href="#services">Styling &amp; Decor</a></li>
-          <li><a href="#services">Day-of Coordination</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#about">Our Story</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#packages">Packages</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="#contact">Contact Us</a></li>
-          <li><a href="https://instagram.com/bloomandco.sg" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://pinterest.com/bloomandcosg" target="_blank" rel="noopener">Pinterest</a></li>
-          <li><a href="#">Wedding Blog</a></li>
-        </ul>
-      </div>
+    <div class="container">
+        <p>&copy; 2026 Bloom & Co. All rights reserved.</p>
+        <p style="margin-top: 8px;">Made by <a href="https://yourstudiodesign.netlify.app" target="_blank">Studio</a></p>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 Bloom &amp; Co. All rights reserved. Crafted with love in Singapore.</p>
-      <div class="footer-social">
-        <a href="https://instagram.com/bloomandco.sg" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="https://pinterest.com/bloomandcosg" target="_blank" rel="noopener" aria-label="Pinterest">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
 </footer>
 
-<!-- ========== JAVASCRIPT ========== -->
 <script>
-(function() {
-  'use strict';
+// Navbar
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
 
-  // ---- Navigation scroll effect ----
-  const nav = document.getElementById('nav');
-  let lastScroll = 0;
+// Mobile menu
+const toggle = document.getElementById('mobileToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { mobileMenu.classList.remove('active'); document.body.style.overflow = ''; }));
 
-  function handleNavScroll() {
-    const scrollY = window.scrollY;
-    if (scrollY > 80) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-    lastScroll = scrollY;
-  }
-
-  window.addEventListener('scroll', handleNavScroll, { passive: true });
-
-  // ---- Mobile menu toggle ----
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navLinks = document.getElementById('navLinks');
-
-  mobileToggle.addEventListener('click', function() {
-    navLinks.classList.toggle('open');
-    mobileToggle.classList.toggle('open');
-  });
-
-  // Close mobile menu on link click
-  navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinks.classList.remove('open');
-      mobileToggle.classList.remove('open');
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     });
-  });
-
-  // ---- Scroll reveal (IntersectionObserver) ----
-  const revealElements = document.querySelectorAll('.reveal');
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -60px 0px'
-    });
-
-    revealElements.forEach(function(el) {
-      observer.observe(el);
-    });
-  } else {
-    // Fallback: show everything
-    revealElements.forEach(function(el) {
-      el.classList.add('visible');
-    });
-  }
-
-  // ---- Smooth scroll for anchor links ----
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        const navHeight = nav.offsetHeight;
-        const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top: targetPos, behavior: 'smooth' });
-      }
-    });
-  });
-
-})();
-
-// ---- Form submission handler ----
-function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button[type="submit"]');
-  const originalText = btn.textContent;
-
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-
-  // Simulate form submission
-  setTimeout(function() {
-    btn.textContent = 'Thank You!';
-    btn.style.background = '#2d2d2d';
-
-    setTimeout(function() {
-      btn.textContent = originalText;
-      btn.style.background = '';
-      btn.disabled = false;
-      form.reset();
-    }, 2500);
-  }, 1200);
-}
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
