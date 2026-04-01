@@ -232,6 +232,20 @@ ul { list-style: none; }
     letter-spacing: 1px;
 }
 .service-card p { font-size: 0.9rem; color: var(--grey); line-height: 1.7; margin-bottom: 20px; }
+.service-img {
+    margin-top: 20px;
+    overflow: hidden;
+}
+.service-img img {
+    width: 100%; height: 160px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+.service-card:hover .service-img img {
+    filter: grayscale(0%);
+    transform: scale(1.03);
+}
 .service-price {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.3rem;
@@ -465,24 +479,28 @@ ul { list-style: none; }
                 <h3>Aircon Servicing</h3>
                 <p>General servicing, chemical wash, gas top-up & installation for all brands. Keep your home cool and energy-efficient.</p>
                 <div class="service-price">From SGD$50 <span>/unit</span></div>
+                <div class="service-img"><img src="../images/Handypro/aircon servicing.png" alt="Aircon servicing"></div>
             </div>
             <div class="service-card">
                 <div class="service-number">02</div>
                 <h3>Plumbing</h3>
                 <p>Leak repairs, pipe replacement, toilet & sink installation. Fast response for emergencies — we'll be there in 2 hours.</p>
                 <div class="service-price">From SGD$80 <span>/job</span></div>
+                <div class="service-img"><img src="../images/Handypro/plumbing.png" alt="Plumbing services"></div>
             </div>
             <div class="service-card">
                 <div class="service-number">03</div>
                 <h3>Electrical</h3>
                 <p>Wiring, switch replacement, ceiling fan installation, DB box upgrades. All work done by licensed electricians.</p>
                 <div class="service-price">From SGD$90 <span>/job</span></div>
+                <div class="service-img"><img src="../images/Handypro/electrical.png" alt="Electrical work"></div>
             </div>
             <div class="service-card">
                 <div class="service-number">04</div>
                 <h3>Deep Cleaning</h3>
                 <p>Move-in/out cleaning, spring cleaning, post-renovation cleanup. We bring all equipment and eco-friendly products.</p>
                 <div class="service-price">From SGD$200 <span>/session</span></div>
+                <div class="service-img"><img src="../images/Handypro/deep cleaning.png" alt="Deep cleaning service"></div>
             </div>
         </div>
     </div>
