@@ -261,6 +261,28 @@ img { max-width: 100%; display: block; }
     margin-bottom: 12px;
 }
 .service-card p { font-size: 0.9rem; color: var(--text); line-height: 1.8; font-weight: 300; }
+.service-card .svc-img {
+    margin-top: 20px;
+    overflow: hidden;
+}
+.service-card .svc-img img {
+    width: 100%; height: 180px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.service-card:hover .svc-img img { transform: scale(1.04); }
+
+/* Split section image */
+.split-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+/* Hero background image */
+.hero-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
 
 /* ===== SPLIT SECTION (Image + Text) ===== */
 .split {
@@ -550,7 +572,7 @@ img { max-width: 100%; display: block; }
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg"><img src="../images/Bloom and co/romantic shot.png" alt="Wedding couple"></div>
     <div class="hero-overlay"></div>
     <div class="container">
         <div class="hero-content">
@@ -599,31 +621,37 @@ img { max-width: 100%; display: block; }
                 <div class="num">01</div>
                 <h3>Full Wedding Planning</h3>
                 <p>End-to-end coordination from concept to execution. Venue sourcing, vendor management, timeline planning, and day-of coordination.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/wedding planning.png" alt="Wedding planning"></div>
             </div>
             <div class="service-card">
                 <div class="num">02</div>
                 <h3>Floral Design</h3>
                 <p>Bespoke floral installations, bridal bouquets, table arrangements, and ceremony arches. Fresh, seasonal blooms sourced from the finest growers.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/floral design wedding.png" alt="Floral design"></div>
             </div>
             <div class="service-card">
                 <div class="num">03</div>
                 <h3>Event Styling</h3>
                 <p>Complete aesthetic direction — tablescapes, lighting design, stationery, and decor — creating a cohesive visual narrative for your day.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/event styling wedding.png" alt="Event styling"></div>
             </div>
             <div class="service-card">
                 <div class="num">04</div>
                 <h3>Day-of Coordination</h3>
                 <p>For couples who've planned their own wedding but need a seasoned professional to execute everything flawlessly on the day.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/wedding coordination.png" alt="Wedding day coordination"></div>
             </div>
             <div class="service-card">
                 <div class="num">05</div>
                 <h3>Destination Weddings</h3>
                 <p>Taking your celebration beyond Singapore — Bali, Phuket, Maldives, and beyond. We handle every logistic so you simply enjoy.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/bali wedding.png" alt="Bali destination wedding"></div>
             </div>
             <div class="service-card">
                 <div class="num">06</div>
                 <h3>Pre-Wedding Events</h3>
                 <p>Engagement parties, bridal showers, rehearsal dinners, and tea ceremonies — each one as thoughtfully designed as the main event.</p>
+                <div class="svc-img"><img src="../images/Bloom and co/bridal shower.png" alt="Bridal shower event"></div>
             </div>
         </div>
     </div>
@@ -631,7 +659,7 @@ img { max-width: 100%; display: block; }
 
 <!-- ABOUT — SPLIT -->
 <section class="split" id="about">
-    <div class="split-image">💐</div>
+    <div class="split-image"><img src="../images/Bloom and co/floral design wedding.png" alt="Bloom & Co floral design"></div>
     <div class="split-content reveal">
         <span class="section-label">Our Story</span>
         <h2>A studio born from a love of <em>beautiful details</em></h2>
