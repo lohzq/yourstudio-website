@@ -259,6 +259,37 @@ ul { list-style: none; }
 .service-card:nth-child(2) .service-price { background: var(--teal-light); color: var(--teal); }
 .service-card:nth-child(3) .service-price { background: var(--purple-light); color: var(--purple); }
 .service-card:nth-child(4) .service-price { background: var(--sky-light); color: var(--sky); }
+.service-card .svc-img {
+    margin-top: 18px;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.service-card .svc-img img {
+    width: 100%; height: 160px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    transition: transform 0.4s ease;
+}
+.service-card:hover .svc-img img { transform: scale(1.05); }
+
+/* Hero image */
+.hero-circle img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Testimonial pet images */
+.testi-pet-img {
+    margin-bottom: 14px;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.testi-pet-img img {
+    width: 100%; height: 160px;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
 
 /* ===== WHY US ===== */
 .why-us {
@@ -499,7 +530,7 @@ ul { list-style: none; }
                 </div>
             </div>
             <div class="hero-visual pop d1">
-                <div class="hero-circle">🐕</div>
+                <div class="hero-circle"><img src="../images/Pawsome/golden retriever.png" alt="Happy golden retriever"></div>
                 <div class="float-badge" style="top: 10%; right: -20px;">⭐ 4.9 Rating</div>
                 <div class="float-badge" style="bottom: 15%; left: -30px;">🏥 AVS Licensed</div>
                 <div class="float-badge" style="bottom: 5%; right: 10%;">🐾 2000+ Pets</div>
@@ -522,24 +553,28 @@ ul { list-style: none; }
                 <h3>Pet Grooming</h3>
                 <p>Full grooming packages including bath, haircut, nail trimming, ear cleaning & teeth brushing. All breeds welcome.</p>
                 <span class="service-price">From SGD$60</span>
+                <div class="svc-img"><img src="../images/Pawsome/grooming.png" alt="Pet grooming"></div>
             </div>
             <div class="service-card pop d1">
                 <span class="service-emoji">🏠</span>
                 <h3>Pet Boarding</h3>
                 <p>Safe, comfortable overnight stays with 24/7 supervision. Individual suites with webcam access so you never miss them.</p>
                 <span class="service-price">From SGD$55/night</span>
+                <div class="svc-img"><img src="../images/Pawsome/pet boarding.png" alt="Pet boarding suite"></div>
             </div>
             <div class="service-card pop d2">
                 <span class="service-emoji">☀️</span>
                 <h3>Daycare</h3>
                 <p>Supervised playtime and socialisation in our spacious indoor-outdoor facility. Perfect for busy pet parents.</p>
                 <span class="service-price">From SGD$35/day</span>
+                <div class="svc-img"><img src="../images/Pawsome/daycare.png" alt="Pet daycare"></div>
             </div>
             <div class="service-card pop d3">
                 <span class="service-emoji">🩺</span>
                 <h3>Vet Clinic</h3>
                 <p>In-house veterinary care including vaccinations, health checks, dental care, and minor procedures. Caring vets on staff.</p>
                 <span class="service-price">From SGD$80/consult</span>
+                <div class="svc-img"><img src="../images/Pawsome/vet clinic.png" alt="Vet clinic"></div>
             </div>
         </div>
     </div>
@@ -596,6 +631,7 @@ ul { list-style: none; }
         </div>
         <div class="testimonials-grid">
             <div class="testi-card pop">
+                <div class="testi-pet-img"><img src="../images/Pawsome/golden retriever.png" alt="Max the golden retriever"></div>
                 <span class="pet-type">🐕 Dog</span>
                 <div class="stars">★★★★★</div>
                 <blockquote>"My golden retriever Max loves coming here! The groomers are so gentle and he always comes back looking and smelling amazing."</blockquote>
@@ -603,6 +639,7 @@ ul { list-style: none; }
                 <div class="pet-name">Max's mom 🐕</div>
             </div>
             <div class="testi-card pop d1">
+                <div class="testi-pet-img"><img src="../images/Pawsome/british shorthair.png" alt="Luna the british shorthair"></div>
                 <span class="pet-type">🐱 Cat</span>
                 <div class="stars">★★★★★</div>
                 <blockquote>"I was nervous about boarding my cat Luna, but the webcam feature put my mind at ease. She looked so comfortable the whole time!"</blockquote>
@@ -610,6 +647,7 @@ ul { list-style: none; }
                 <div class="pet-name">Luna's dad 🐱</div>
             </div>
             <div class="testi-card pop d2">
+                <div class="testi-pet-img"><img src="../images/Pawsome/pomeranian mochi.png" alt="Mochi the pomeranian"></div>
                 <span class="pet-type">🐕 Dog</span>
                 <div class="stars">★★★★★</div>
                 <blockquote>"Best pet daycare in Singapore! My pomeranian Mochi has made so many friends. The staff sends me daily photo updates."</blockquote>
